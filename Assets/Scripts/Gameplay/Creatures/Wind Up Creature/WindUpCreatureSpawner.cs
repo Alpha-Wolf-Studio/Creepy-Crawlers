@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace Gameplay.Creatures
 {
-    public class WindCreatureSpawner : CreatureSpawner
+    public class WindUpCreatureSpawner : CreatureSpawner
     {
         [Header("Spawner Configurations")]
-        [SerializeField] private WindCreature windCreature;
+        [SerializeField] private WindUpCreature windUpCreature;
         [SerializeField] private GameObject spawnPreviewPrefab;
 
         private GameObject _spawnPreview = null;
@@ -18,12 +18,11 @@ namespace Gameplay.Creatures
 
         private void Update()
         {
-            Debug.Log("Pointer Position " + GetPointerPositionInWorldPosition());
             _spawnPreview.transform.position = GetPointerPositionInWorldPosition();
 
             if (IsSpawnButtonDown()) 
             {
-                Instantiate(windCreature, _spawnPreview.transform.position, Quaternion.identity);
+                Instantiate(windUpCreature, _spawnPreview.transform.position, Quaternion.identity);
                 CreatureSpawnedEvent?.Invoke(Data);
                 Destroy(gameObject);
             }

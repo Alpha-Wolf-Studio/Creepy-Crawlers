@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5920057794623358376}
   - component: {fileID: 5920057794623358423}
   m_Layer: 0
-  m_Name: Preview Wind Creature
+  m_Name: Preview Wind Up Creature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

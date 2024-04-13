@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creatureDataList:
-  - {fileID: 11400000, guid: 67c10c2358e7e8446bdcf9f781362d12, type: 2}
+  - {fileID: 11400000, guid: 8a7d5f6f0701c584982bb88da3523025, type: 2}
 --- !u!1 &2077788913
 GameObject:
   m_ObjectHideFlags: 0
