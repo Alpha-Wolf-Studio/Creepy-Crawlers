@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creatureDataList:
-  - {fileID: 11400000, guid: 8a7d5f6f0701c584982bb88da3523025, type: 2}
+  - {fileID: 11400000, guid: 67c10c2358e7e8446bdcf9f781362d12, type: 2}
 --- !u!1 &2077788913
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +465,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 331119960591143913, guid: 18ccf4daa86d0d24fb7722cb070a7dea, type: 3}
+      propertyPath: forceToAdd.x
+      value: 0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 1120469937337029040, guid: 18ccf4daa86d0d24fb7722cb070a7dea, type: 3}
       propertyPath: m_RootOrder
       value: 2

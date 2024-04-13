@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efe875e723a22fb43be5eaba32168580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRangeBetweenCreatures: 5
+  teleporterCreature: {fileID: 3001470755087001647, guid: e5af7f9803e02304b932112f5e7400b7, type: 3}
+  spawnPreviewPrefab: {fileID: 3001470755087001640, guid: 1179091823de0b14db8d5dcb7cd4f6d2, type: 3}

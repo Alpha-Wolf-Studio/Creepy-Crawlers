@@ -4,6 +4,7 @@ namespace Gameplay.Creatures
 {
     public class WindCreatureSpawner : CreatureSpawner
     {
+        [Header("Spawner Configurations")]
         [SerializeField] private WindCreature windCreature;
         [SerializeField] private GameObject spawnPreviewPrefab;
 
@@ -23,6 +24,7 @@ namespace Gameplay.Creatures
             if (IsSpawnButtonDown()) 
             {
                 Instantiate(windCreature, _spawnPreview.transform.position, Quaternion.identity);
+                CreatureSpawnedEvent?.Invoke(Data);
                 Destroy(gameObject);
             }
         }
