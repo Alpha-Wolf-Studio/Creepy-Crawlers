@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class Key : MonoBehaviour, IPickup
+public class Key : Pickable
 {
-    public void PickUp()
+    public override void PickUp()
     {
-        //GameManager.KeyPickup(id);
+        onPickUp?.Invoke(this);
         gameObject.SetActive(false);
     }
+
 }

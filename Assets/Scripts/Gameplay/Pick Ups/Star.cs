@@ -1,10 +1,8 @@
-using UnityEngine;
-
-public class Star : MonoBehaviour, IPickup
+public class Star : Pickable
 {
-    public void PickUp()
+    public override void PickUp()
     {
-        //GameManager.StarPickup();
+        onPickUp?.Invoke(this);
         gameObject.SetActive(false);
     }
 }
