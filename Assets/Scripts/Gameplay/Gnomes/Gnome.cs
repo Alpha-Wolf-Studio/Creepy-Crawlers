@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Gnome
@@ -11,6 +12,7 @@ namespace Gnome
         [SerializeField] private LayerMask layerMaskCollision;
         [SerializeField] private Animator animator;
 
+        public bool IsFalling { get; private set; }
         public Rigidbody2D Rigidbody2D { get; private set; }
         public GnomeStats GnomeStats => gnomeStats;
 
@@ -22,6 +24,7 @@ namespace Gnome
         private void Update()
         {
             CheckForwardCollision();
+            CheckFallCollision();
         }
 
         private void FixedUpdate()
@@ -36,6 +39,11 @@ namespace Gnome
         public void Set(int direction)
         {
             this.direction = (Direction)direction;
+        }
+
+        public void AddExternalVelocity(Vector2 forceToAdd, ForceMode2D forceMode2D)
+        {
+            Rigidbody2D.AddForce(forceToAdd, forceMode2D);
         }
 
         public void Kill()
@@ -63,12 +71,39 @@ namespace Gnome
         private void CheckForwardCollision()
         {
             float raycastDistance = 0.1f;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, raycastDistance, layerMaskCollision);
+            RaycastHit2D hit =
+                    Physics2D.Raycast(transform.position, transform.right, raycastDistance, layerMaskCollision);
 
             if (hit.collider != null)
             {
                 if (direction == Direction.Left) direction = Direction.Right;
                 else if (direction == Direction.Right) direction = Direction.Left;
+            }
+        }
+
+        private void CheckFallCollision()
+        {
+
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            Pickable pickable = other.GetComponent<Pickable>();
+            if (pickable != null)
+            {
+                pickable.PickUp();
+                switch (pickable.pickableType)
+                {
+                    case PickableType.Key:
+                        GnomeStats.keyAmount++;
+                        break;
+                    case PickableType.Star:
+                        GnomeStats.starAmount++;
+                        break;
+                    default:
+                        Debug.LogWarning("Este pickable no posee tipo");
+                        break;
+                }
             }
         }
     }
