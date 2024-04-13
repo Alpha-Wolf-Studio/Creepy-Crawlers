@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &916873843947438951
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 916873843947438950}
+  - component: {fileID: -1143923014822664309}
+  m_Layer: 0
+  m_Name: Spawner Bridge Creature
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &916873843947438950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916873843947438951}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1143923014822664309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916873843947438951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52b73cc1eaa560541bebca660da583b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bridgeCreature: {fileID: 4865113854936774541, guid: a0f40159362e5a641a187f8a9bc1028a, type: 3}
+  leftHandPreviewPrefab: {fileID: 5650116085354589357, guid: 2e9f2ce8d7ea0e4479c5d19b70c109ce, type: 3}
+  rightHandPreviewPrefab: {fileID: 5975154251801728172, guid: e6060cfb59e8aab49b99b5474425b60c, type: 3}
+  bridgeMaxSize: 5
+  solidBridgeCheckMask:
+    serializedVersion: 2
+    m_Bits: 128
+  hookDistanceFromTop: 0.5
+  solidBridgeTolerance: 0.1

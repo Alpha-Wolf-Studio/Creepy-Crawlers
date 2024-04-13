@@ -53,7 +53,7 @@ namespace Gameplay.Creatures
                     TeleporterCreature secondTeleporter = Instantiate(teleporterCreature, _secondSpawnPreview.transform.position, Quaternion.identity);
 
                     firstTeleporter.SetTeleport(secondTeleporter, TeleporterCreature.TeleporterType.Connected);
-                    secondTeleporter.SetTeleport(firstTeleporter, TeleporterCreature.TeleporterType.Connected);
+                    secondTeleporter.SetTeleport(firstTeleporter, TeleporterCreature.TeleporterType.Disconnected);
 
                     CreatureSpawnedEvent?.Invoke(Data);
                     Destroy(gameObject);
