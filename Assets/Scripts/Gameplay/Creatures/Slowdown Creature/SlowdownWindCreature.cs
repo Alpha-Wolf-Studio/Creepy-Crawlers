@@ -9,7 +9,7 @@ namespace Gameplay.Creatures
         [SerializeField] private Bounds slowDownbound;
         [SerializeField, Range(0, 1)] private float slowDownFactor;
 
-        private List<Collider2D> affectedColliders = new List<Collider2D>();
+        private readonly List<Collider2D> _affectedColliders = new List<Collider2D>();
 
         void Update()
         {
@@ -17,14 +17,14 @@ namespace Gameplay.Creatures
 
             foreach (var collider in collidersInTheSlowdownZone)
             {
-                if (!affectedColliders.Contains(collider)) 
+                if (!_affectedColliders.Contains(collider)) 
                 {
                     ChangeGravitiyScale(collider, slowDownFactor);
-                    affectedColliders.Add(collider);
+                    _affectedColliders.Add(collider);
                 }
             }
 
-            foreach (var collider in affectedColliders)
+            foreach (var collider in _affectedColliders)
             {
                 if (!collidersInTheSlowdownZone.Contains(collider)) 
                 {
@@ -32,12 +32,12 @@ namespace Gameplay.Creatures
                 }
             }
 
-            affectedColliders.RemoveAll(collider => !collidersInTheSlowdownZone.Contains(collider));
+            _affectedColliders.RemoveAll(collider => !collidersInTheSlowdownZone.Contains(collider));
         }
 
         private void OnDestroy()
         {
-            foreach (var collider in affectedColliders)
+            foreach (var collider in _affectedColliders)
             {
                 ChangeGravitiyScale(collider, 1);
             }

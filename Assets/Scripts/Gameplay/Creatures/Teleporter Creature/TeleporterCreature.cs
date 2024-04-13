@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Gameplay.Creatures
 {
+    [RequireComponent(typeof(Collider2D))]
     public class TeleporterCreature : MonoBehaviour
     {
         [SerializeField] private TeleporterCreature linkedCreature;
