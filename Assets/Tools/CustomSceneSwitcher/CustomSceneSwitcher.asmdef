@@ -1,0 +1,16 @@
+{
+    "name": "CustomSceneSwitcher",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e5d49852b2a0a3243a5032266d932221"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

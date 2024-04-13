@@ -1,0 +1,16 @@
+{
+    "name": "CustomSceneSwitcher.Switcher",
+    "rootNamespace": "",
+    "references": [
+        "GUID:32d834cc0d3b51045b8999d2015dddf2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
