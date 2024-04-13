@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace Gameplay.Creatures
@@ -47,13 +48,24 @@ namespace Gameplay.Creatures
             }
             else if (_currentSpawnState == SpawnState.SpawningRightHand)
             {
-                _rightHandPreview.transform.position = GetPointerPositionInWorldPosition();
+                Vector3 newPossiblePosition = GetPointerPositionInWorldPosition();
+                newPossiblePosition.y = _leftHandPreview.transform.position.y;
+
+                if (Vector3.Distance(_leftHandPreview.transform.position, newPossiblePosition) > bridgeMaxSize)
+                {
+                    Vector3 directionFromFirstPiece = (newPossiblePosition - _leftHandPreview.transform.position).normalized * bridgeMaxSize;
+                    newPossiblePosition = directionFromFirstPiece + _leftHandPreview.transform.position;
+                }
+
+                _rightHandPreview.transform.position = newPossiblePosition;
+
 
                 if (IsSpawnButtonDown())
                 {
                     if (_possibleFirstCollider) 
                     {
-                        CheckSecondHandHook();
+                        if (!CheckSecondHandHook())
+                            return;
                     }
 
                     BridgeCreature bridge = Instantiate(bridgeCreature);
@@ -81,7 +93,7 @@ namespace Gameplay.Creatures
             }
         }
 
-        private void CheckSecondHandHook() 
+        private bool CheckSecondHandHook() 
         {
             Collider2D[] hits = Physics2D.OverlapCircleAll(GetPointerPositionInWorldPosition(), solidBridgeTolerance, solidBridgeCheckMask);
 
@@ -91,8 +103,10 @@ namespace Gameplay.Creatures
 
                 _rightHandPreview.transform.position = new Vector3(_rightHandPreview.transform.position.x,
                     _leftHandPreview.transform.position.y, _rightHandPreview.transform.position.z);
-                return;
+                return true;
             }
+
+            return hits.Count() == 0;
         }
 
         private void OnDestroy()

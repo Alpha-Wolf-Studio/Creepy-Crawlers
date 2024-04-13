@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Gameplay.Creatures
@@ -23,7 +22,6 @@ namespace Gameplay.Creatures
 
         public void SetCreature(bool solidBridge, Vector3 leftHandPosition, Vector3 rightHandPosition) 
         {
-
             Vector3 centerPosition = Vector3.Lerp(leftHandPosition, rightHandPosition, .5f);
             transform.position = centerPosition;
 
