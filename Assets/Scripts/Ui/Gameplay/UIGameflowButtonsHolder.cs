@@ -9,12 +9,12 @@ namespace UI.Gameplay
     {
         public event Action PauseButtonPressedEvent = delegate { };
         public event Action ResetGameButtonPressedEvent = delegate { };
-        public event Action GoToMenuButtonPressedEvent = delegate { };
+        public event Action ConfigurationsButtonPressedEvent = delegate { };
 
         [Header("Buttons")]
         [SerializeField] private Button pauseGameButton;
         [SerializeField] private Button resetGameButton;
-        [SerializeField] private Button goToMenuButton;
+        [SerializeField] private Button configurationsButton;
 
         private TextMeshProUGUI _pauseButtonText;
 
@@ -27,14 +27,14 @@ namespace UI.Gameplay
         {
             pauseGameButton.onClick.AddListener(CallPauseGameButtonEvent);
             resetGameButton.onClick.AddListener(CallResetGameButtonEvent);
-            goToMenuButton.onClick.AddListener(CallGoToMenuButtonEvent);
+            configurationsButton.onClick.AddListener(CallConfigurationsButtonEvent);
         }
 
         private void OnDestroy()
         {
             pauseGameButton.onClick.RemoveListener(CallPauseGameButtonEvent);
             resetGameButton.onClick.RemoveListener(CallResetGameButtonEvent);
-            goToMenuButton.onClick.RemoveListener(CallGoToMenuButtonEvent);
+            configurationsButton.onClick.RemoveListener(CallConfigurationsButtonEvent);
         }
 
         private void CallPauseGameButtonEvent() 
@@ -48,9 +48,9 @@ namespace UI.Gameplay
             ResetGameButtonPressedEvent?.Invoke();
         }
 
-        private void CallGoToMenuButtonEvent()
+        private void CallConfigurationsButtonEvent() 
         {
-            GoToMenuButtonPressedEvent?.Invoke();
+            ConfigurationsButtonPressedEvent?.Invoke();
         }
     }
 }

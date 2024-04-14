@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Gameplay.Creatures;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI.Gameplay
 {
@@ -13,10 +14,12 @@ namespace UI.Gameplay
 
         [Header("Top Panel")]
         [SerializeField] private UIGameflowButtonsHolder gameflowButtonsHolder;
+        [SerializeField] private UIConfigurationsPopUp configurationsPopUp;
 
         List<CreatureData> _creaturesData = new();
 
         private bool _paused = false;
+        private bool _configurationsPopUpOpen = false;
 
         private void Start()
         {
@@ -41,7 +44,9 @@ namespace UI.Gameplay
 
             gameflowButtonsHolder.PauseButtonPressedEvent += TogglePauseGame;
             gameflowButtonsHolder.ResetGameButtonPressedEvent += ResetGame;
-            gameflowButtonsHolder.GoToMenuButtonPressedEvent += GoToMenu;
+            gameflowButtonsHolder.ConfigurationsButtonPressedEvent += ToggleConfigurationsMenu;
+
+            configurationsPopUp.GoToMenuButtonPressedEvent += GoToMenu;
         }
 
         private void OnDestroy()
@@ -52,7 +57,9 @@ namespace UI.Gameplay
 
             gameflowButtonsHolder.PauseButtonPressedEvent -= TogglePauseGame;
             gameflowButtonsHolder.ResetGameButtonPressedEvent -= ResetGame;
-            gameflowButtonsHolder.GoToMenuButtonPressedEvent -= GoToMenu;
+            gameflowButtonsHolder.ConfigurationsButtonPressedEvent -= ToggleConfigurationsMenu;
+
+            configurationsPopUp.GoToMenuButtonPressedEvent -= GoToMenu;
         }
 
         private void CreateCreatureSpawner(CreatureData data) 
@@ -80,12 +87,18 @@ namespace UI.Gameplay
 
         private void ResetGame() 
         {
-            //TODO call to same scene
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
 
         private void GoToMenu() 
         {
             //TODO call to menu scene
+        }
+
+        private void ToggleConfigurationsMenu() 
+        {
+            _configurationsPopUpOpen = !_configurationsPopUpOpen;
+            configurationsPopUp.gameObject.SetActive(_configurationsPopUpOpen);
         }
     }
 }
