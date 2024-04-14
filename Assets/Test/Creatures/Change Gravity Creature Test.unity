@@ -589,7 +589,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3866185182594403440, guid: 66570e315b5e82f46a5957f1f65a47b9, type: 3}
       propertyPath: m_Name
-      value: Slowdown Wind Creature
+      value: Change Gravity Creature
       objectReference: {fileID: 0}
     - target: {fileID: 3866185182594403446, guid: 66570e315b5e82f46a5957f1f65a47b9, type: 3}
       propertyPath: m_RootOrder

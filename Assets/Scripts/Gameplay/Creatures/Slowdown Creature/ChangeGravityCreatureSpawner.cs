@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace Gameplay.Creatures
 {
-    public class SlowdownWindCreatureSpawner : CreatureSpawner
+    public class ChangeGravityCreatureSpawner : CreatureSpawner
     {
         [Header("Spawner Configurations")]
-        [SerializeField] private SlowdownWindCreature slowdownWindCreature;
+        [SerializeField] private ChangeGravityCreature slowdownWindCreature;
         [SerializeField] private GameObject spawnPreviewPrefab;
 
         private GameObject _spawnPreview = null;

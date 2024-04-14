@@ -1374,10 +1374,6 @@ PrefabInstance:
       propertyPath: gnomesPool
       value: 
       objectReference: {fileID: 671406911}
-    - target: {fileID: -9124231748594982453, guid: cc755b7dcddd6764ea1b32123d8426c3, type: 3}
-      propertyPath: spawnInOneRow
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7321499792912128619, guid: cc755b7dcddd6764ea1b32123d8426c3, type: 3}
       propertyPath: m_RootOrder
       value: 4
