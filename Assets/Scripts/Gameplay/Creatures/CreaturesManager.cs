@@ -30,7 +30,8 @@ namespace Gameplay.Creatures
 
         public void CancelCurrentSpawner() 
         {
-            _currentSpawner.Dispose();
+            if(_currentSpawner)
+                _currentSpawner.Dispose();
         }
 
         private void CallCreatureCreatedEvent(CreatureData creatureData) 
