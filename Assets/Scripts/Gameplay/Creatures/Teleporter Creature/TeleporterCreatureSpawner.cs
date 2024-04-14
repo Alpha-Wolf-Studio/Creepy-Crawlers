@@ -7,17 +7,18 @@ namespace Gameplay.Creatures
         [Header("Spawner Configurations")]
         [SerializeField] private float maxRangeBetweenCreatures;
         [SerializeField] private TeleporterCreature teleporterCreature;
-        [SerializeField] private GameObject spawnPreviewPrefab;
+        [SerializeField] private GameObject previewTeleporterFromPrefab;
+        [SerializeField] private GameObject previewTeleporterToPrefab;
 
-        private GameObject _firstSpawnPreview = null;
-        private GameObject _secondSpawnPreview = null;
+        private GameObject _fromSpawnPreview = null;
+        private GameObject _toSpawnPreview = null;
 
         private SpawnState _currentSpawnState;
 
         private void Start()
         {
-            if (!_firstSpawnPreview)
-                _firstSpawnPreview = Instantiate(spawnPreviewPrefab);
+            if (!_fromSpawnPreview)
+                _fromSpawnPreview = Instantiate(previewTeleporterFromPrefab);
 
             _currentSpawnState = SpawnState.SpawningFirstTeleporter;
         }
@@ -26,11 +27,11 @@ namespace Gameplay.Creatures
         {
             if (_currentSpawnState == SpawnState.SpawningFirstTeleporter) 
             {
-                _firstSpawnPreview.transform.position = GetPointerPositionInWorldPosition();
+                _fromSpawnPreview.transform.position = GetPointerPositionInWorldPosition();
 
                 if (IsSpawnButtonDown())
                 {
-                    _secondSpawnPreview = Instantiate(spawnPreviewPrefab);
+                    _toSpawnPreview = Instantiate(previewTeleporterToPrefab);
                     _currentSpawnState = SpawnState.SpawningSecondTeleporter;
                 }
             }
@@ -38,22 +39,22 @@ namespace Gameplay.Creatures
             {
                 Vector3 newPossiblePosition = GetPointerPositionInWorldPosition();
 
-                if (Vector3.Distance(_firstSpawnPreview.transform.position, newPossiblePosition) > maxRangeBetweenCreatures) 
+                if (Vector3.Distance(_fromSpawnPreview.transform.position, newPossiblePosition) > maxRangeBetweenCreatures) 
                 {
-                    Vector3 directionFromFirstPiece = (newPossiblePosition - _firstSpawnPreview.transform.position).normalized * maxRangeBetweenCreatures;
-                    newPossiblePosition = directionFromFirstPiece + _firstSpawnPreview.transform.position;
+                    Vector3 directionFromFirstPiece = (newPossiblePosition - _fromSpawnPreview.transform.position).normalized * maxRangeBetweenCreatures;
+                    newPossiblePosition = directionFromFirstPiece + _fromSpawnPreview.transform.position;
                 }
 
-                _secondSpawnPreview.transform.position = newPossiblePosition;
+                _toSpawnPreview.transform.position = newPossiblePosition;
 
 
                 if (IsSpawnButtonDown())
                 {
-                    TeleporterCreature firstTeleporter = Instantiate(teleporterCreature, _firstSpawnPreview.transform.position, Quaternion.identity);
-                    TeleporterCreature secondTeleporter = Instantiate(teleporterCreature, _secondSpawnPreview.transform.position, Quaternion.identity);
+                    TeleporterCreature firstTeleporter = Instantiate(teleporterCreature, _fromSpawnPreview.transform.position, Quaternion.identity);
+                    TeleporterCreature secondTeleporter = Instantiate(teleporterCreature, _toSpawnPreview.transform.position, Quaternion.identity);
 
-                    firstTeleporter.SetTeleport(secondTeleporter, TeleporterCreature.TeleporterType.Connected);
-                    secondTeleporter.SetTeleport(firstTeleporter, TeleporterCreature.TeleporterType.Disconnected);
+                    firstTeleporter.SetTeleport(secondTeleporter, TeleporterCreature.TeleporterType.From);
+                    secondTeleporter.SetTeleport(firstTeleporter, TeleporterCreature.TeleporterType.To);
 
                     CreatureSpawnedEvent?.Invoke(Data);
                     Destroy(gameObject);
@@ -63,13 +64,13 @@ namespace Gameplay.Creatures
 
         private void OnDestroy()
         {
-            if (_firstSpawnPreview)
-                Destroy(_firstSpawnPreview);
-            _firstSpawnPreview = null;
+            if (_fromSpawnPreview)
+                Destroy(_fromSpawnPreview);
+            _fromSpawnPreview = null;
 
-            if (_secondSpawnPreview)
-                Destroy(_secondSpawnPreview);
-            _secondSpawnPreview = null;
+            if (_toSpawnPreview)
+                Destroy(_toSpawnPreview);
+            _toSpawnPreview = null;
         }
 
         private enum SpawnState 

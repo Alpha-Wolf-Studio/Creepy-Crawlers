@@ -6,17 +6,24 @@ namespace Gameplay.Creatures
     [RequireComponent(typeof(Collider2D))]
     public class TeleporterCreature : MonoBehaviour
     {
-        [SerializeField] private TeleporterCreature linkedCreature;
-        [SerializeField] private TeleporterType teleporterType;
+        [Header("Teleporter Data")]
+        [SerializeField] private GameObject teleporterSpawnPoint;
+
+        [Header("Teleporter Visual")]
+        [SerializeField] private GameObject teleporterFromVisual;
+        [SerializeField] private GameObject teleporterToVisual;
+
+        private TeleporterType _teleporterType;
+        private TeleporterCreature _linkedCreature;
 
         private readonly List<Collider2D> _receivedCreatures = new List<Collider2D>();
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (teleporterType != TeleporterType.Connected) return;
+            if (_teleporterType != TeleporterType.From) return;
 
             if (!_receivedCreatures.Contains(collision))
-                linkedCreature?.ReceiveGnome(collision);
+                _linkedCreature?.ReceiveGnome(collision);
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -27,23 +34,23 @@ namespace Gameplay.Creatures
 
         public void ReceiveGnome(Collider2D collision) 
         {
-            if (collision.TryGetComponent(out Rigidbody2D rigidbody2D))
-            {
-                rigidbody2D.MovePosition(transform.position);
-                _receivedCreatures.Add(collision);
-            }
+            collision.transform.position = teleporterSpawnPoint.transform.position;
+            _receivedCreatures.Add(collision);
         }
 
         public void SetTeleport(TeleporterCreature newLinkedCreature, TeleporterType newTeleporterType)
         {
-            linkedCreature = newLinkedCreature;
-            teleporterType = newTeleporterType;
+            _linkedCreature = newLinkedCreature;
+            _teleporterType = newTeleporterType;
+
+            teleporterFromVisual.SetActive(newTeleporterType == TeleporterType.From);
+            teleporterToVisual.SetActive(newTeleporterType == TeleporterType.To);
         }
 
         public enum TeleporterType 
         {
-            Disconnected,
-            Connected
+            From,
+            To
         }
     }
 }
