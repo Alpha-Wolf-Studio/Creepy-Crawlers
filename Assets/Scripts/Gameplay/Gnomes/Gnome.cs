@@ -59,7 +59,7 @@ namespace Gnomes
                 {
                     case PickableType.Key:
                         GnomeStats.keyAmount++;
-                        //OnKeyPickUp?.Invoke();
+                        OnKeyPickUp?.Invoke();
                         break;
                     case PickableType.Star:
                         GnomeStats.starAmount++;
