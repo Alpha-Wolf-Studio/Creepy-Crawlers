@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &138519747
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7203145088194397132, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397132, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397132, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397132, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397132, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397132, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397132, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397132, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397132, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397132, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397132, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397135, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: m_Name
+      value: CreaturesManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
 --- !u!1 &192270123
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +191,7 @@ GameObject:
   - component: {fileID: 192270124}
   - component: {fileID: 192270125}
   - component: {fileID: 192270126}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Floor (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +396,7 @@ GameObject:
   - component: {fileID: 1101817812}
   - component: {fileID: 1101817813}
   - component: {fileID: 1101817814}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Floor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,7 +507,7 @@ GameObject:
   - component: {fileID: 1227360956}
   - component: {fileID: 1227360957}
   - component: {fileID: 1227360958}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Floor (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -645,7 +702,7 @@ GameObject:
   - component: {fileID: 1637911672}
   - component: {fileID: 1637911671}
   - component: {fileID: 1637911673}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -756,7 +813,7 @@ GameObject:
   - component: {fileID: 1842007042}
   - component: {fileID: 1842007043}
   - component: {fileID: 1842007044}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Floor (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -865,7 +922,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2062205976}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: World Place Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
