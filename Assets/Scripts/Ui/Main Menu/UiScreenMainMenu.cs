@@ -5,6 +5,7 @@ using UnityEngine;
 public class UiScreenMainMenu : MonoBehaviour
 {
     [SerializeField] private UiControllerMainMenu controllerMainMenu;
+    [SerializeField] private UiControllerLevelSelector controllerLevelSelector;
     [SerializeField] private UiControllerSettings controllerSettings;
     [SerializeField] private UiControllerCredits controllerCredits;
     [SerializeField] private AnimationCurve animationCurve;
@@ -24,6 +25,7 @@ public class UiScreenMainMenu : MonoBehaviour
     private void Start ()
     {
         SetPanel(controllerMainMenu.canvasGroup, true);
+        SetPanel(controllerLevelSelector.canvasGroup, false);
         SetPanel(controllerSettings.canvasGroup, false);
         SetPanel(controllerCredits.canvasGroup, false);
     }
@@ -37,10 +39,7 @@ public class UiScreenMainMenu : MonoBehaviour
         controllerCredits.onCreditsCloseButtonClicked -= ControllerCredits_onCreditsCloseButtonClicked;
     }
 
-    private void ControllerMainMenu_onPlayButtonClicked ()
-    {
-        throw new NotImplementedException();
-    }
+    private void ControllerMainMenu_onPlayButtonClicked () => SwitchController(durationFade, controllerLevelSelector.canvasGroup, controllerMainMenu.canvasGroup);
 
     private void ControllerMainMenu_onSettingsButtonClicked () => SwitchController(durationFade, controllerSettings.canvasGroup, controllerMainMenu.canvasGroup);
 
