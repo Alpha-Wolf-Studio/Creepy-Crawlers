@@ -43,6 +43,14 @@ namespace UI.Gameplay
             }
         }
 
+        public void ChangeCardsLockState(bool locked)
+        {
+            foreach (var card in _cardsInHolder)
+            {
+                card.ChangeLockState(locked);
+            }
+        }
+
         private void CallCardSelectedEvent(CreatureData creatureData) 
         {
             OnCardSelected?.Invoke(creatureData);
