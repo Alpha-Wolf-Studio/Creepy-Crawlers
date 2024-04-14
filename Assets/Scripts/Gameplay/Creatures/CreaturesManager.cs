@@ -6,6 +6,7 @@ namespace Gameplay.Creatures
     public class CreaturesManager : MonoBehaviour
     {
         public event System.Action<CreatureData> CreatureSpawnedEvent = delegate { };
+        public event System.Action CreatureSpawnCancelEvent = delegate { };
 
         [SerializeField] private List<CreatureData> creatureDataList = new List<CreatureData>();
 
@@ -30,8 +31,11 @@ namespace Gameplay.Creatures
 
         public void CancelCurrentSpawner() 
         {
-            if(_currentSpawner)
+            if (_currentSpawner) 
+            {
                 _currentSpawner.Dispose();
+                CreatureSpawnCancelEvent?.Invoke();
+            }
         }
 
         private void CallCreatureCreatedEvent(CreatureData creatureData) 
