@@ -64,7 +64,6 @@ namespace Gnome
                 }
 
                 Rigidbody2D.AddForce(new Vector2(forceToAdd * (int)direction, 0), ForceMode2D.Impulse);
-                Debug.Log("Push");
             }
         }
 
