@@ -25,20 +25,14 @@ namespace Gameplay.Creatures
             Vector3 centerPosition = Vector3.Lerp(leftHandPosition, rightHandPosition, .5f);
             transform.position = centerPosition;
 
-            if(leftHandPosition.x < rightHandPosition.x) 
-            {
-                LeftHandVisual.transform.position = leftHandPosition;
-                rightHandVisual.transform.position = rightHandPosition;
-            }
-            else 
-            {
-                LeftHandVisual.transform.position = rightHandPosition;
-                rightHandVisual.transform.position = leftHandPosition;
-            }
-
             float size = Vector2.Distance(leftHandPosition, rightHandPosition);
             _collider2D.size = new Vector2(size, _collider2D.size.y);
             bridgeArmsMask.transform.localScale = new Vector3(size + maskRemovalOffset, bridgeArmsMask.transform.localScale.y, bridgeArmsMask.transform.localScale.z);
+
+            LeftHandVisual.transform.localPosition = 
+                new Vector3(-size / 2, bridgeArmsMask.transform.localPosition.y, LeftHandVisual.transform.position.z);
+            rightHandVisual.transform.localPosition =
+                new Vector3(size / 2, bridgeArmsMask.transform.localPosition.y, rightHandVisual.transform.position.z);
 
             if (solidBridge) 
             {
