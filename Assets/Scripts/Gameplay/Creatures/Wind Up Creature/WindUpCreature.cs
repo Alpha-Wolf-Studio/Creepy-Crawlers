@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Gameplay.Creatures
@@ -13,7 +11,7 @@ namespace Gameplay.Creatures
 
         void Update()
         {
-            List<Collider2D> collidersInTheSlowdownZone = Physics2D.OverlapBoxAll(transform.position + pushbound.center, pushbound.size, 0, gnomesLayer).ToList();
+            Collider2D[] collidersInTheSlowdownZone = Physics2D.OverlapBoxAll(transform.position + pushbound.center, pushbound.size, 0, gnomesLayer);
 
             foreach (var collider in collidersInTheSlowdownZone)
             {
