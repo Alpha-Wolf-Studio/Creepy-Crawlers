@@ -36,8 +36,6 @@ namespace Gameplay.Creatures
                 rightHandVisual.transform.position = leftHandPosition;
             }
 
-
-
             float size = Vector2.Distance(leftHandPosition, rightHandPosition);
             _collider2D.size = new Vector2(size, _collider2D.size.y);
             bridgeArmsMask.transform.localScale = new Vector3(size + maskRemovalOffset, bridgeArmsMask.transform.localScale.y, bridgeArmsMask.transform.localScale.z);
@@ -49,6 +47,7 @@ namespace Gameplay.Creatures
             else 
             {
                 _body2D.bodyType = RigidbodyType2D.Dynamic;
+                _body2D.mass = 1000;
             }
         }
     }
