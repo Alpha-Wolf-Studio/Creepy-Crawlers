@@ -5,7 +5,7 @@ namespace Gnomes
 {
     public class Gnome : MonoBehaviour
     {
-        private const int MaxHeightFall = -9;
+        [SerializeField] private int MaxHeightFall = -9;
         private static readonly int States = Animator.StringToHash("States");
 
         [SerializeField] private GnomeStats gnomeStats = new GnomeStats();
