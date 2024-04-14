@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Gnome
@@ -9,12 +8,13 @@ namespace Gnome
         private static readonly int States = Animator.StringToHash("States");
 
         [SerializeField] private GnomeStats gnomeStats = new GnomeStats();
-        [SerializeField] private Direction direction = Direction.Left;
         [SerializeField] private Animator animator;
         [SerializeField] private CollisionDetect gnomeForward;
         [SerializeField] private CollisionDetect gnomeFloor;
-        [SerializeField] private bool isAlive = true;
-        [SerializeField] private float lastFallSpeed = 0;
+
+        private Direction direction = Direction.Left;
+        private bool isAlive = true;
+        private float lastFallSpeed = 0;
 
         public bool IsFalling { get; private set; }
         public Rigidbody2D Rigidbody2D { get; private set; }
@@ -148,9 +148,9 @@ namespace Gnome
             transform.Rotate(Vector3.up, 180f);
             Rigidbody2D.velocity = Vector2.zero;
 
-            if (direction == Direction.Left) 
+            if (direction == Direction.Left)
                 direction = Direction.Right;
-            else if (direction == Direction.Right) 
+            else if (direction == Direction.Right)
                 direction = Direction.Left;
         }
     }
