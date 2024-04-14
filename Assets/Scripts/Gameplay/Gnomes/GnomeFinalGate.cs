@@ -17,6 +17,11 @@ namespace Gameplay.Gnomes
             LevelSystem.OnKeysObjectiveReached += EnableDoor;
         }
 
+        private void OnDestroy()
+        {
+            LevelSystem.OnKeysObjectiveReached -= EnableDoor;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (isOpen)

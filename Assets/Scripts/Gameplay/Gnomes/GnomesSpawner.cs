@@ -70,6 +70,12 @@ namespace Gameplay.Gnomes
             LevelSystem.OnGnomesReleased += SpawnAllGnomes;
         }
 
+        private void OnDestroy()
+        {
+            LevelSystem.OnLevelStarted -= SetMaxGnomes;
+            LevelSystem.OnGnomesReleased -= SpawnAllGnomes;
+        }
+
         private void SetMaxGnomes(int max)
         {
             spawnQuantity = max;

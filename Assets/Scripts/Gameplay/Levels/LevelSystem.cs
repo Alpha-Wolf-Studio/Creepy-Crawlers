@@ -29,6 +29,12 @@ namespace Gameplay.Levels
             StartSummoning();
         }
 
+        private void OnDestroy()
+        {
+            Gnome.Gnome.OnKeyPickUp -= CheckKeys;
+            GnomeFinalGate.OnGnomeEntered -= AbsorbGnomeData;
+        }
+
         private void StartSummoning()
         {
             StartCoroutine(RealeaseTheGnomes());
