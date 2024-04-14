@@ -47,7 +47,8 @@ MonoBehaviour:
   bridgeCreature: {fileID: 4865113854936774541, guid: a0f40159362e5a641a187f8a9bc1028a, type: 3}
   leftHandPreviewPrefab: {fileID: 5650116085354589357, guid: 2e9f2ce8d7ea0e4479c5d19b70c109ce, type: 3}
   rightHandPreviewPrefab: {fileID: 5975154251801728172, guid: e6060cfb59e8aab49b99b5474425b60c, type: 3}
-  bridgeMaxSize: 5
+  bridgeMinSize: 8
+  bridgeMaxSize: 15
   solidBridgeCheckMask:
     serializedVersion: 2
     m_Bits: 128

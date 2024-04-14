@@ -6,10 +6,10 @@ namespace Gameplay.Creatures
     {
         [Header("Visual")]
         [SerializeField] private GameObject LeftHandVisual;
-        [SerializeField] private GameObject leftArmVisual;
         [SerializeField] private GameObject centerVisual;
-        [SerializeField] private GameObject rightArmVisual;
         [SerializeField] private GameObject rightHandVisual;
+        [SerializeField] private GameObject bridgeArmsMask;
+        [SerializeField] private float maskRemovalOffset;
 
         private Rigidbody2D _body2D;
         private BoxCollider2D _collider2D;
@@ -25,10 +25,22 @@ namespace Gameplay.Creatures
             Vector3 centerPosition = Vector3.Lerp(leftHandPosition, rightHandPosition, .5f);
             transform.position = centerPosition;
 
-            LeftHandVisual.transform.position = leftHandPosition;
-            rightHandVisual.transform.position = rightHandPosition;
+            if(leftHandPosition.x < rightHandPosition.x) 
+            {
+                LeftHandVisual.transform.position = leftHandPosition;
+                rightHandVisual.transform.position = rightHandPosition;
+            }
+            else 
+            {
+                LeftHandVisual.transform.position = rightHandPosition;
+                rightHandVisual.transform.position = leftHandPosition;
+            }
 
-            _collider2D.size = new Vector2(Vector2.Distance(leftHandPosition, rightHandPosition), _collider2D.size.y);
+
+
+            float size = Vector2.Distance(leftHandPosition, rightHandPosition);
+            _collider2D.size = new Vector2(size, _collider2D.size.y);
+            bridgeArmsMask.transform.localScale = new Vector3(size + maskRemovalOffset, bridgeArmsMask.transform.localScale.y, bridgeArmsMask.transform.localScale.z);
 
             if (solidBridge) 
             {
