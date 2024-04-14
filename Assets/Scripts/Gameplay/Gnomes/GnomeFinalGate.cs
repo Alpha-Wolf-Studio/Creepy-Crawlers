@@ -1,32 +1,39 @@
+using Gameplay.Levels;
 using System;
 using UnityEngine;
 using Utils;
 
 namespace Gameplay.Gnomes
 {
-    public class Door : MonoBehaviour
+    public class GnomeFinalGate : MonoBehaviour
     {
         [SerializeField] private ObjectPool gnomesPool;
-        private int gnomeMaxCount = 5;
-        private int gnomesDetected = 0;
-        [Range(0f, 1f)]
-        private float gnomesPercentageNeeded;
+        private bool isOpen = false;
 
-        public event Action<GameObject> OnGnomeEntered;
+        public static Action<Gnome.Gnome> OnGnomeEntered;
+
+        private void Start()
+        {
+            LevelSystem.OnKeysObjectiveReached += EnableDoor;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Gnome"))
+            if (isOpen)
             {
-                gnomesPool.ReturnObjectToPool(other.transform.gameObject);
-                gnomesDetected++;
+                if (other.CompareTag("Gnome"))
+                {
+                    gnomesPool.ReturnObjectToPool(other.transform.gameObject);
+                    OnGnomeEntered?.Invoke(other.transform.gameObject.GetComponent<Gnome.Gnome>());
+                }
             }
         }
 
-        public bool PercentageReached()
+        private void EnableDoor()
         {
-            return (gnomesDetected / gnomeMaxCount) > gnomesPercentageNeeded;
+            isOpen = true;
         }
+       
 
     }
 }

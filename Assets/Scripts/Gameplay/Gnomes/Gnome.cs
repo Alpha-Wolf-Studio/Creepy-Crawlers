@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Gnome
@@ -19,6 +20,8 @@ namespace Gnome
         public bool IsFalling { get; private set; }
         public Rigidbody2D Rigidbody2D { get; private set; }
         public GnomeStats GnomeStats => gnomeStats;
+
+        public static Action OnKeyPickUp;
 
         private void Awake()
         {
@@ -56,6 +59,7 @@ namespace Gnome
                 {
                     case PickableType.Key:
                         GnomeStats.keyAmount++;
+                        OnKeyPickUp?.Invoke();
                         break;
                     case PickableType.Star:
                         GnomeStats.starAmount++;

@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using Gameplay.Levels;
 using System.Collections;
 using UnityEditor;
 #endif
@@ -12,18 +13,18 @@ namespace Gameplay.Gnomes
     public class GnomesSpawnerEditor : Editor
     {
         SerializedProperty spawnAllInOneRowProp;
+        SerializedProperty objectPoolProp;
         SerializedProperty spawnIntervalProp;
         SerializedProperty spawnPositionProp;
-        SerializedProperty spawnQuantityProp;
         SerializedProperty rowsProp;
         SerializedProperty rowSpawnIntervalProp;
 
         private void OnEnable()
         {
             spawnAllInOneRowProp = serializedObject.FindProperty("spawnInOneRow");
+            objectPoolProp = serializedObject.FindProperty("gnomesPool");
             spawnIntervalProp = serializedObject.FindProperty("spawnInterval");
             spawnPositionProp = serializedObject.FindProperty("spawnPosition");
-            spawnQuantityProp = serializedObject.FindProperty("spawnQuantity");
             rowsProp = serializedObject.FindProperty("rows");
             rowSpawnIntervalProp = serializedObject.FindProperty("rowSpawnInterval");
         }
@@ -33,11 +34,11 @@ namespace Gameplay.Gnomes
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(spawnAllInOneRowProp);
+            EditorGUILayout.PropertyField(objectPoolProp);
 
 
             EditorGUILayout.PropertyField(spawnIntervalProp);
             EditorGUILayout.PropertyField(spawnPositionProp);
-            EditorGUILayout.PropertyField(spawnQuantityProp);
 
             if (!spawnAllInOneRowProp.boolValue)
             {
@@ -57,10 +58,22 @@ namespace Gameplay.Gnomes
         [SerializeField] private ObjectPool gnomesPool;
         [SerializeField] private float spawnInterval = 1f;
         [SerializeField] private Vector3 spawnPosition;
-        [SerializeField] private int spawnQuantity;
+
+        private int spawnQuantity = 0;
 
         [SerializeField] private int rows;
         [SerializeField] private float rowSpawnInterval = 5f;
+
+        private void Awake()
+        {
+            LevelSystem.OnLevelStarted += SetMaxGnomes;
+            LevelSystem.OnGnomesReleased += SpawnAllGnomes;
+        }
+
+        private void SetMaxGnomes(int max)
+        {
+            spawnQuantity = max;
+        }
 
         public void SpawnAllGnomes()
         {
@@ -108,7 +121,7 @@ namespace Gameplay.Gnomes
 
         private void SpawnGnome()
         {
-            gnomesPool.GetObjectFromPool().transform.position = spawnPosition;
+            gnomesPool.GetObjectFromPool().transform.position = this.transform.position + spawnPosition;
             spawnQuantity--;
         }
     }
