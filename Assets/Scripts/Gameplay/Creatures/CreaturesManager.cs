@@ -13,6 +13,13 @@ namespace Gameplay.Creatures
 
         private CreatureSpawner _currentSpawner;
 
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(1)) 
+            {
+                CancelCurrentSpawner();
+            }
+        }
 
         public void CreateSpawner(CreatureData creatureData) 
         {
@@ -29,13 +36,6 @@ namespace Gameplay.Creatures
         private void CallCreatureCreatedEvent(CreatureData creatureData) 
         {
             CreatureSpawnedEvent?.Invoke(creatureData);
-        }
-
-        [ContextMenu("Create Random Spawner")]
-        public void CreateRandomSpawner() 
-        {
-            int random = Random.Range(0, creatureDataList.Count);
-            Instantiate(creatureDataList[random].creatureSpawnerPrefab);
         }
     }
 }
