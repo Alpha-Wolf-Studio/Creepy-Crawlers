@@ -273,6 +273,10 @@ namespace PlayFab.ServerModels
         /// </summary>
         public DateTime? Expires;
         /// <summary>
+        /// Whether or not the Microsoft family members are included in the ban.
+        /// </summary>
+        public bool? IncludeMicrosoftFamily;
+        /// <summary>
         /// The IP address on which the ban was applied. May affect multiple players.
         /// </summary>
         public string IPAddress;
@@ -296,6 +300,10 @@ namespace PlayFab.ServerModels
         /// The duration in hours for the ban. Leave this blank for a permanent ban.
         /// </summary>
         public uint? DurationInHours;
+        /// <summary>
+        /// Whether the Microsoft family members should be included in the ban. May affect multiple players.
+        /// </summary>
+        public bool? IncludeMicrosoftFamily;
         /// <summary>
         /// IP address to be banned. May affect multiple players.
         /// </summary>
@@ -1976,6 +1984,17 @@ namespace PlayFab.ServerModels
         InvalidServiceConfiguration,
         InvalidNamespaceMismatch,
         LeaderboardColumnLengthMismatch,
+        InvalidStatisticScore,
+        LeaderboardColumnsNotSpecified,
+        LeaderboardMaxSizeTooLarge,
+        InvalidAttributeStatisticsSpecified,
+        LeaderboardNotFound,
+        TokenSigningKeyNotFound,
+        LeaderboardNameConflict,
+        LinkedStatisticColumnMismatch,
+        NoLinkedStatisticToLeaderboard,
+        StatDefinitionAlreadyLinkedToLeaderboard,
+        LinkingStatsNotAllowedForEntityType,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2019,6 +2038,7 @@ namespace PlayFab.ServerModels
         CatalogItemTypeInvalid,
         CatalogBadRequest,
         CatalogTooManyRequests,
+        InvalidCatalogItemConfiguration,
         ExportInvalidStatusUpdate,
         ExportInvalidPrefix,
         ExportBlobContainerDoesNotExist,
@@ -2120,6 +2140,12 @@ namespace PlayFab.ServerModels
         LobbyNewOwnerMustBeConnected,
         LobbyCurrentOwnerStillConnected,
         LobbyMemberIsNotOwner,
+        LobbyServerMismatch,
+        LobbyServerNotFound,
+        LobbyDifferentServerAlreadyJoined,
+        LobbyServerAlreadyJoined,
+        LobbyIsNotClientOwned,
+        LobbyDoesNotUseConnections,
         EventSamplingInvalidRatio,
         EventSamplingInvalidEventNamespace,
         EventSamplingInvalidEventName,
@@ -2143,6 +2169,9 @@ namespace PlayFab.ServerModels
         EventSinkTenantNotFound,
         EventSinkAadNotFound,
         EventSinkDatabaseNotFound,
+        EventSinkTitleUnauthorized,
+        EventSinkInsufficientRoleAssignment,
+        EventSinkContainerNotFound,
         OperationCanceled,
         InvalidDisplayNameRandomSuffixLength,
         AllowNonUniquePlayerDisplayNamesDisableNotAllowed,
@@ -2162,7 +2191,26 @@ namespace PlayFab.ServerModels
         PlayerCustomPropertiesDuplicatePropertyName,
         PlayerCustomPropertiesPropertyDoesNotExist,
         AddonAlreadyExists,
-        AddonDoesntExist
+        AddonDoesntExist,
+        CopilotDisabled,
+        CopilotInvalidRequest,
+        TrueSkillUnauthorized,
+        TrueSkillBadRequest,
+        TrueSkillMatchResultAlreadySubmitted,
+        TrueSkillDuplicatePlayerInMatchResult,
+        TrueSkillInvalidRanksInMatchResult,
+        TrueSkillNoWinnerInMatchResult,
+        TrueSkillMissingRequiredConditionInMatchResult,
+        TrueSkillMissingRequiredEventInMatchResult,
+        TrueSkillUnknownEventInMatchResult,
+        TrueSkillUnknownConditionName,
+        TrueSkillUnknownConditionValue,
+        TrueSkillUnknownScenarioId,
+        TrueSkillUnknownModelId,
+        TrueSkillNoActiveModelInScenario,
+        StateShareUnauthorized,
+        StateShareStateNotFound,
+        StateShareLinkNotFound
     }
 
     [Serializable]
@@ -3166,6 +3214,32 @@ namespace PlayFab.ServerModels
         /// Mapping of PlayStation :tm: Network identifiers to PlayFab identifiers.
         /// </summary>
         public List<PSNAccountPlayFabIdPair> Data;
+    }
+
+    [Serializable]
+    public class GetPlayFabIDsFromPSNOnlineIDsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Id of the PlayStation :tm: Network issuer environment. If null, defaults to production environment.
+        /// </summary>
+        public int? IssuerId;
+        /// <summary>
+        /// Array of unique PlayStation :tm: Network identifiers for which the title needs to get PlayFab identifiers. The array
+        /// cannot exceed 2,000 in length.
+        /// </summary>
+        public List<string> PSNOnlineIDs;
+    }
+
+    /// <summary>
+    /// For PlayStation :tm: Network identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
+    [Serializable]
+    public class GetPlayFabIDsFromPSNOnlineIDsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Mapping of PlayStation :tm: Network identifiers to PlayFab identifiers.
+        /// </summary>
+        public List<PSNOnlinePlayFabIdPair> Data;
     }
 
     [Serializable]
@@ -5002,6 +5076,20 @@ namespace PlayFab.ServerModels
     }
 
     [Serializable]
+    public class PSNOnlinePlayFabIdPair : PlayFabBaseModel
+    {
+        /// <summary>
+        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the PlayStation :tm: Network
+        /// identifier.
+        /// </summary>
+        public string PlayFabId;
+        /// <summary>
+        /// Unique PlayStation :tm: Network identifier for a user.
+        /// </summary>
+        public string PSNOnlineId;
+    }
+
+    [Serializable]
     public class PushNotificationPackage : PlayFabBaseModel
     {
         /// <summary>
@@ -6236,6 +6324,10 @@ namespace PlayFab.ServerModels
         /// The updated expiration date for the ban. Null for no change.
         /// </summary>
         public DateTime? Expires;
+        /// <summary>
+        /// The updated decision to ban the Microsoft family members to be updated. Null for no change.
+        /// </summary>
+        public bool? IncludeMicrosoftFamily;
         /// <summary>
         /// The updated IP address for the ban. Null for no change.
         /// </summary>
