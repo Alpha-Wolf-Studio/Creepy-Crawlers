@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Gnome
+namespace Gnomes
 {
     public class Gnome : MonoBehaviour
     {
@@ -13,7 +13,7 @@ namespace Gnome
         [SerializeField] private CollisionDetect gnomeForward;
         [SerializeField] private CollisionDetect gnomeFloor;
 
-        private Direction direction = Direction.Left;
+        private Direction direction = Direction.Right;
         private bool isAlive = true;
         private float lastFallSpeed = 0;
 
@@ -59,7 +59,7 @@ namespace Gnome
                 {
                     case PickableType.Key:
                         GnomeStats.keyAmount++;
-                        OnKeyPickUp?.Invoke();
+                        //OnKeyPickUp?.Invoke();
                         break;
                     case PickableType.Star:
                         GnomeStats.starAmount++;
@@ -97,6 +97,11 @@ namespace Gnome
         public void Set(int direction)
         {
             this.direction = (Direction)direction;
+            if (this.direction == Direction.Left)
+            {
+                transform.Rotate(Vector3.up, 180f);
+                Rigidbody2D.velocity = Vector2.zero;
+            }
         }
 
         public void AddExternalVelocity(Vector2 forceToAdd, ForceMode2D forceMode2D)

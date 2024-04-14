@@ -2,6 +2,7 @@ using Gameplay.Levels;
 using System;
 using UnityEngine;
 using Utils;
+using Gnomes;
 
 namespace Gameplay.Gnomes
 {
@@ -10,7 +11,7 @@ namespace Gameplay.Gnomes
         [SerializeField] private ObjectPool gnomesPool;
         private bool isOpen = false;
 
-        public static Action<Gnome.Gnome> OnGnomeEntered;
+        public static Action<Gnome> OnGnomeEntered;
 
         private void Start()
         {
@@ -26,10 +27,11 @@ namespace Gameplay.Gnomes
         {
             if (isOpen)
             {
-                if (other.CompareTag("Gnome"))
+                Gnome gnome = other.GetComponent<Gnome>();
+                if (gnome != null)
                 {
-                    gnomesPool.ReturnObjectToPool(other.transform.gameObject);
-                    OnGnomeEntered?.Invoke(other.transform.gameObject.GetComponent<Gnome.Gnome>());
+                    gnomesPool.ReturnObjectToPool(gnome.gameObject);
+                    OnGnomeEntered?.Invoke(gnome);
                 }
             }
         }

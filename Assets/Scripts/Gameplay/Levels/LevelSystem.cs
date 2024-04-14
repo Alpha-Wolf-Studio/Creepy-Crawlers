@@ -1,5 +1,6 @@
 using UnityEngine;
 using Gameplay.Gnomes;
+using Gnomes;
 using System;
 using System.Collections;
 
@@ -23,7 +24,7 @@ namespace Gameplay.Levels
 
         private void Start()
         {
-            Gnome.Gnome.OnKeyPickUp += CheckKeys;
+            Gnome.OnKeyPickUp += CheckKeys;
             OnLevelStarted?.Invoke(maxGnomesInLevel);
             GnomeFinalGate.OnGnomeEntered += AbsorbGnomeData;
             StartSummoning();
@@ -31,7 +32,7 @@ namespace Gameplay.Levels
 
         private void OnDestroy()
         {
-            Gnome.Gnome.OnKeyPickUp -= CheckKeys;
+            Gnome.OnKeyPickUp -= CheckKeys;
             GnomeFinalGate.OnGnomeEntered -= AbsorbGnomeData;
         }
 
@@ -64,7 +65,7 @@ namespace Gameplay.Levels
             }
         }
 
-        private void AbsorbGnomeData(Gnome.Gnome gnome)
+        private void AbsorbGnomeData(Gnome gnome)
         {
             starsObtained += gnome.GnomeStats.starAmount;
         }
