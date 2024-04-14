@@ -295,7 +295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799839723}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: -1.2, z: 0}
   m_LocalScale: {x: 20, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creatureDataList:
-  - {fileID: 11400000, guid: 8a7d5f6f0701c584982bb88da3523025, type: 2}
+  - {fileID: 11400000, guid: 7753b4826a69efe47961d2be6c05b04a, type: 2}
 --- !u!1 &2077788913
 GameObject:
   m_ObjectHideFlags: 0

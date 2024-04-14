@@ -8,12 +8,13 @@ namespace Gameplay.Creatures
     {
         [SerializeField] private Bounds slowDownbound;
         [SerializeField, Range(0, 1)] private float slowDownFactor;
+        [SerializeField] private LayerMask gnomesLayer;
 
         private readonly List<Collider2D> _affectedColliders = new List<Collider2D>();
 
         void Update()
         {
-            List<Collider2D> collidersInTheSlowdownZone = Physics2D.OverlapBoxAll(transform.position + slowDownbound.center, slowDownbound.size, 0).ToList();
+            List<Collider2D> collidersInTheSlowdownZone = Physics2D.OverlapBoxAll(transform.position + slowDownbound.center, slowDownbound.size, 0, gnomesLayer).ToList();
 
             foreach (var collider in collidersInTheSlowdownZone)
             {

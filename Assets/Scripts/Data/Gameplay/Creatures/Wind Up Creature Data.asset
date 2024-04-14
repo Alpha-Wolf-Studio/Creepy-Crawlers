@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 155f128f6725f9e4d8f1c8e884f2d896, type: 3}
-  m_Name: Wind Creature Data
+  m_Name: Wind Up Creature Data
   m_EditorClassIdentifier: 
-  creatureName: Wind Creature
+  creatureName: Wind Up Creature
   creatureThumbnail: {fileID: 0}
   creatureSpawnerPrefab: {fileID: 3595606071238940379, guid: 45c57396720a1ab45aafc646fab1baef, type: 3}
