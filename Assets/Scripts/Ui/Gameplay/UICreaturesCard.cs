@@ -37,6 +37,8 @@ namespace UI.Gameplay
                 cardImage.sprite = data.creatureThumbnail;
         }
 
+        public void ChangeLockState(bool locked) => cardButton.interactable = !locked;
+
         private void CallCardSelectedEvent() 
         {
             OnCardSelected?.Invoke(_creatureData);
