@@ -6,12 +6,10 @@ namespace UI.Gameplay
 {
     public class UIControllerGameplay : MonoBehaviour
     {
-
         [SerializeField] private CreaturesManager creaturesManager;
         [SerializeField] private UICreaturesCard creaturesCardPrefab;
-        [SerializeField] private GameObject creaturesCardsHolder;
+        [SerializeField] private UICreaturesCardHolder creaturesCardsHolder;
 
-        List<UICreaturesCard> _uiCreaturesCards = new();
         List<CreatureData> _creaturesData = new();
 
         private void Start()
@@ -26,23 +24,19 @@ namespace UI.Gameplay
 
             foreach (var data in _creaturesData)
             {
-                UICreaturesCard creaturesCard = Instantiate(creaturesCardPrefab, creaturesCardsHolder.transform);
+                UICreaturesCard creaturesCard = Instantiate(creaturesCardPrefab);
                 creaturesCard.SetCard(data);
-                creaturesCard.OnCardSelected += CreateCreatureSpawner;
-                _uiCreaturesCards.Add(creaturesCard);
+                creaturesCardsHolder.AddCard(creaturesCard);
             }
 
+            creaturesCardsHolder.OnCardSelected += CreateCreatureSpawner;
             creaturesManager.CreatureSpawnedEvent += OnCreatureSpawned;
             creaturesManager.CreatureSpawnCancelEvent += OnCreatureSpawnCanceled;
         }
 
         private void OnDestroy()
         {
-            foreach (var creaturesCard in _uiCreaturesCards)
-            {
-                creaturesCard.OnCardSelected -= CreateCreatureSpawner;
-            }
-
+            creaturesCardsHolder.OnCardSelected -= CreateCreatureSpawner;
             creaturesManager.CreatureSpawnedEvent -= OnCreatureSpawned;
             creaturesManager.CreatureSpawnCancelEvent -= OnCreatureSpawnCanceled;
         }
@@ -50,17 +44,17 @@ namespace UI.Gameplay
         private void CreateCreatureSpawner(CreatureData data) 
         {
             creaturesManager.CreateSpawner(data);
-            creaturesCardsHolder.SetActive(false);
+            creaturesCardsHolder.HideCards();
         }
 
         private void OnCreatureSpawned(CreatureData data) 
         {
-            creaturesCardsHolder.SetActive(true);
+            creaturesCardsHolder.ShowCards();
         }
 
         private void OnCreatureSpawnCanceled() 
         {
-            creaturesCardsHolder.SetActive(true);
+            creaturesCardsHolder.ShowCards();
         }
     }
 }
