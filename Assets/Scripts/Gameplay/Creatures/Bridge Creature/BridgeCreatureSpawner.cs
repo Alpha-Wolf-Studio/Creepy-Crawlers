@@ -9,6 +9,7 @@ namespace Gameplay.Creatures
         [SerializeField] private BridgeCreature bridgeCreature;
         [SerializeField] private GameObject leftHandPreviewPrefab;
         [SerializeField] private GameObject rightHandPreviewPrefab;
+        [SerializeField] private float bridgeMinSize;
         [SerializeField] private float bridgeMaxSize;
 
         [Header("Hook Configuration")]
@@ -51,13 +52,30 @@ namespace Gameplay.Creatures
                 Vector3 newPossiblePosition = GetPointerPositionInWorldPosition();
                 newPossiblePosition.y = _leftHandPreview.transform.position.y;
 
-                if (Vector3.Distance(_leftHandPreview.transform.position, newPossiblePosition) > bridgeMaxSize)
+                float distance = Vector3.Distance(_leftHandPreview.transform.position, newPossiblePosition);
+                if (distance > bridgeMaxSize)
                 {
                     Vector3 directionFromFirstPiece = (newPossiblePosition - _leftHandPreview.transform.position).normalized * bridgeMaxSize;
                     newPossiblePosition = directionFromFirstPiece + _leftHandPreview.transform.position;
                 }
+                else if (distance < bridgeMinSize) 
+                {
+                    Vector3 directionFromFirstPiece = (newPossiblePosition - _leftHandPreview.transform.position).normalized * bridgeMinSize;
+                    newPossiblePosition = directionFromFirstPiece + _leftHandPreview.transform.position;
+                }
 
                 _rightHandPreview.transform.position = newPossiblePosition;
+
+                if (_rightHandPreview.transform.position.x < _leftHandPreview.transform.position.x)
+                {
+                    _leftHandPreview.transform.localScale = Vector3.one;
+                    _rightHandPreview.transform.localScale = Vector3.one;
+                }
+                else 
+                {
+                    _leftHandPreview.transform.localScale = new Vector3(-1, 1, 1);
+                    _rightHandPreview.transform.localScale = new Vector3(-1, 1, 1);
+                }
 
 
                 if (IsSpawnButtonDown())
