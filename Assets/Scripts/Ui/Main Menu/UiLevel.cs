@@ -31,6 +31,7 @@ public class UiLevel : MonoBehaviour
         stars = starsAmount;
         button.interactable = !isLocked;
         imgLocked.gameObject.SetActive(isLocked);
+
         for (int i = 0; i < starsImages.Count; i++)
         {
             if (stars > i)

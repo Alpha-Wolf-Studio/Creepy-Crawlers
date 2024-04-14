@@ -23,5 +23,10 @@ namespace CustomSceneSwitcher.Switcher.Data
         
         public LoadingBarVisibility LoadingBarVisibility => loadingBarVisibility;
         [SerializeField] private LoadingBarVisibility loadingBarVisibility;
+
+        public void SetScene(SceneReference sceneReference)
+        {
+            this.sceneReference = sceneReference;
+        }
     }
 }
