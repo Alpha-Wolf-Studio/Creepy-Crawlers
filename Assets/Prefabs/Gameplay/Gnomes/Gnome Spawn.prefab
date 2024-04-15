@@ -104,6 +104,8 @@ MonoBehaviour:
   spawnPosition: {x: 0, y: -2, z: 0}
   rows: 0
   rowSpawnInterval: 5
+  audioClip: {fileID: 8300000, guid: f833669298fc78e43b6505f12102f193, type: 3}
+  audioMixerGroup: {fileID: 3156052392243304486, guid: c863f41792ccddc48b9abf05389a2d78, type: 2}
 --- !u!95 &8469178274912550465
 Animator:
   serializedVersion: 4

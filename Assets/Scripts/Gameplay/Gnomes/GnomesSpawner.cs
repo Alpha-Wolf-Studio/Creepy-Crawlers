@@ -19,6 +19,9 @@ namespace Gameplay.Gnomes
         SerializedProperty rowsProp;
         SerializedProperty rowSpawnIntervalProp;
 
+        SerializedProperty audioClipProp;
+        SerializedProperty audioMixerGroupProp;
+
         private void OnEnable()
         {
             spawnAllInOneRowProp = serializedObject.FindProperty("spawnInOneRow");
@@ -27,6 +30,10 @@ namespace Gameplay.Gnomes
             spawnPositionProp = serializedObject.FindProperty("spawnPosition");
             rowsProp = serializedObject.FindProperty("rows");
             rowSpawnIntervalProp = serializedObject.FindProperty("rowSpawnInterval");
+            
+            audioClipProp = serializedObject.FindProperty("audioClip");
+            audioMixerGroupProp = serializedObject.FindProperty("audioMixerGroup");
+
         }
 
         public override void OnInspectorGUI()
@@ -46,6 +53,9 @@ namespace Gameplay.Gnomes
                 EditorGUILayout.PropertyField(rowSpawnIntervalProp);
             }
 
+            EditorGUILayout.PropertyField(audioClipProp);
+            EditorGUILayout.PropertyField(audioMixerGroupProp);
+
             serializedObject.ApplyModifiedProperties();
         }
     }
@@ -64,10 +74,20 @@ namespace Gameplay.Gnomes
         [SerializeField] private int rows;
         [SerializeField] private float rowSpawnInterval = 5f;
 
+        [Header("Audio Config")]
+        [SerializeField] private AudioClip audioClip = null;
+        [SerializeField] private UnityEngine.Audio.AudioMixerGroup audioMixerGroup = null;
+        private AudioSource audioSource = null;
+
         private void Awake()
         {
             LevelSystem.OnLevelStarted += SetMaxGnomes;
             LevelSystem.OnGnomesReleased += SpawnAllGnomes;
+
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.outputAudioMixerGroup = audioMixerGroup;
+            audioSource.clip = audioClip;
+            audioSource.loop = false;
         }
 
         private void OnDestroy()
@@ -128,6 +148,9 @@ namespace Gameplay.Gnomes
         private void SpawnGnome()
         {
             gnomesPool.GetObjectFromPool().transform.position = this.transform.position + spawnPosition;
+            
+            audioSource.Play();
+
             spawnQuantity--;
         }
     }
