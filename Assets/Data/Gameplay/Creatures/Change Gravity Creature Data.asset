@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 155f128f6725f9e4d8f1c8e884f2d896, type: 3}
-  m_Name: Slowdown Creature Data
+  m_Name: Change Gravity Creature Data
   m_EditorClassIdentifier: 
-  creatureName: Slowdown Creature
+  creatureName: Change Gravity Creature
   creatureThumbnail: {fileID: 0}
   creatureSpawnerPrefab: {fileID: 6457784414142865296, guid: e559766013d933743aa7c0c679249e7b, type: 3}

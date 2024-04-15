@@ -46,7 +46,8 @@ namespace Gnomes
 
         private void FixedUpdate()
         {
-            Move();
+            if (isAlive)
+                Move();
         }
 
         private void OnTriggerEnter2D(Collider2D other)

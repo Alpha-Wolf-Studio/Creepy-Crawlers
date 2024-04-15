@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 3866185182594403447}
   - component: {fileID: -5481030779398155302}
   m_Layer: 8
-  m_Name: Slowdown Wind Creature
+  m_Name: Change Gravity Creature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,10 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a4daa6dfe3b1747a414bfbe635e16b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowDownbound:
-    m_Center: {x: 0, y: 5.5, z: 0}
-    m_Extent: {x: 2, y: 5, z: 0}
-  slowDownFactor: 0.2
+  changeGravityBound:
+    m_Center: {x: 0, y: 4.5, z: 0}
+    m_Extent: {x: 3, y: 4, z: 0}
+  newGravityFactor: 2
+  gnomeMaxSpeedChange: 1
+  gnomeSlowdownOnEnter: 1
   gnomesLayer:
     serializedVersion: 2
     m_Bits: 64

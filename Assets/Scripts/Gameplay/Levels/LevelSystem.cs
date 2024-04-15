@@ -70,5 +70,4 @@ namespace Gameplay.Levels
             starsObtained += gnome.GnomeStats.starAmount;
         }
     }
-
 }
