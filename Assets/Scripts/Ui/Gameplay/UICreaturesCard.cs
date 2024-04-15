@@ -8,13 +8,14 @@ namespace UI.Gameplay
 {
     public class UICreaturesCard : MonoBehaviour
     {
-        public event Action<CreatureData> OnCardSelected = delegate { };
+        public event Action<CreatureSceneData> OnCardSelected = delegate { };
+        public CreatureSceneData CreatureSceneData => _creatureSceneData;
 
         [SerializeField] private Button cardButton;
-        [SerializeField] private TextMeshProUGUI cardText;
-        [SerializeField] private Image cardImage;
+        [SerializeField] private Image cardCreatureImage;
+        [SerializeField] private TextMeshProUGUI cardAmountText;
 
-        private CreatureData _creatureData;
+        private CreatureSceneData _creatureSceneData;
 
         private void Awake()
         {
@@ -26,22 +27,27 @@ namespace UI.Gameplay
             cardButton.onClick.RemoveListener(CallCardSelectedEvent);
         }
 
-        public void SetCard(CreatureData data) 
+        public void SetCard(CreatureSceneData creatureSceneData) 
         {
-            _creatureData = data;
-
-            if(cardText)
-                cardText.text = data.creatureName;
-
-            if (cardImage)
-                cardImage.sprite = data.creatureThumbnail;
+            _creatureSceneData = creatureSceneData;
+            UpdateCard();
         }
 
         public void ChangeLockState(bool locked) => cardButton.interactable = !locked;
 
+        public void UpdateCard() 
+        {
+            if (cardCreatureImage)
+                cardCreatureImage.sprite = _creatureSceneData.CreatureData.creatureCardSprite;
+
+            if (cardAmountText)
+                cardAmountText.text = _creatureSceneData.CreatureAmount.ToString();
+        }
+
         private void CallCardSelectedEvent() 
         {
-            OnCardSelected?.Invoke(_creatureData);
+            OnCardSelected?.Invoke(_creatureSceneData);
         }
+
     }
 }

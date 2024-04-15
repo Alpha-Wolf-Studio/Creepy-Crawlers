@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Springboard Creature Data
   m_EditorClassIdentifier: 
   creatureName: Spring Creature
-  creatureThumbnail: {fileID: 0}
+  creatureCardSprite: {fileID: 21300000, guid: 238478d351196fa4c8c3644f74274898, type: 3}
   creatureSpawnerPrefab: {fileID: 2812435760091785136, guid: cc42c5e3a1526d1449700648c2bfd4ef, type: 3}

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Wind Up Creature Data
   m_EditorClassIdentifier: 
   creatureName: Wind Up Creature
-  creatureThumbnail: {fileID: 0}
+  creatureCardSprite: {fileID: 21300000, guid: c5e981569a9d32b4ca9ea4de0d4d24c6, type: 3}
   creatureSpawnerPrefab: {fileID: 3595606071238940379, guid: 45c57396720a1ab45aafc646fab1baef, type: 3}
