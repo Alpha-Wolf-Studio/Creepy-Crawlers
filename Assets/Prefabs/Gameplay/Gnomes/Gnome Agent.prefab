@@ -256,7 +256,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1384228727}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.22, y: -0.6, z: 0}
+  m_LocalPosition: {x: -0.22, y: -1, z: 0}
   m_LocalScale: {x: 1.2775, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -411,6 +411,7 @@ MonoBehaviour:
   animator: {fileID: 938150751}
   gnomeForward: {fileID: 3413850581607802942}
   gnomeFloor: {fileID: 2736073007549393262}
+  spriteRenderer: {fileID: 0}
 --- !u!50 &7349347397009457528
 Rigidbody2D:
   serializedVersion: 4
