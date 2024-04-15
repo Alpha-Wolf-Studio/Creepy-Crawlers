@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5757318174707714748}
   - component: {fileID: 4793069654713869234}
-  - component: {fileID: 7894055616144643923}
   m_Layer: 5
   m_Name: UI Creatures Card Holder
   m_TagString: Untagged
@@ -50,29 +49,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c8e4a429195574eb34a49dda3f917c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7894055616144643923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5095909613465330693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  offsetBetweenCards: 150
+  rotationFromCenterFactor: 0
+  yOffsetCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  yOffsetStrenght: 60
