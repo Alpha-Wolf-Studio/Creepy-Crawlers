@@ -1,4 +1,4 @@
-namespace Gnome
+namespace Gnomes
 {
     [System.Serializable]
     public class GnomeStats

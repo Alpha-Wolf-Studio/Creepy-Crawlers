@@ -1,10 +1,16 @@
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using CustomSceneSwitcher.Switcher;
+using CustomSceneSwitcher.Switcher.Data;
+using CustomSceneSwitcher.Switcher.External;
 
 public class UiScreenMainMenu : MonoBehaviour
 {
+    [SerializeField] private SceneChangeData sceneChangeData;
+    [SerializeField] private List<SceneReference> allLevels = new List<SceneReference>();
     [SerializeField] private UiControllerMainMenu controllerMainMenu;
+    [SerializeField] private UiControllerLevelSelector controllerLevelSelector;
     [SerializeField] private UiControllerSettings controllerSettings;
     [SerializeField] private UiControllerCredits controllerCredits;
     [SerializeField] private AnimationCurve animationCurve;
@@ -19,11 +25,13 @@ public class UiScreenMainMenu : MonoBehaviour
         controllerMainMenu.onCreditsButtonClicked += ControllerMainMenu_onCreditsButtonClicked;
         controllerSettings.onSettingsCloseButtonClicked += ControllerSettings_onSettingsCloseButtonClicked;
         controllerCredits.onCreditsCloseButtonClicked += ControllerCredits_onCreditsCloseButtonClicked;
+        controllerLevelSelector.onLevelSelected += ControllerLevelSelector_onLevelSelected;
     }
 
     private void Start ()
     {
         SetPanel(controllerMainMenu.canvasGroup, true);
+        SetPanel(controllerLevelSelector.canvasGroup, false);
         SetPanel(controllerSettings.canvasGroup, false);
         SetPanel(controllerCredits.canvasGroup, false);
     }
@@ -35,12 +43,10 @@ public class UiScreenMainMenu : MonoBehaviour
         controllerMainMenu.onCreditsButtonClicked -= ControllerMainMenu_onCreditsButtonClicked;
         controllerSettings.onSettingsCloseButtonClicked -= ControllerSettings_onSettingsCloseButtonClicked;
         controllerCredits.onCreditsCloseButtonClicked -= ControllerCredits_onCreditsCloseButtonClicked;
+        controllerLevelSelector.onLevelSelected -= ControllerLevelSelector_onLevelSelected;
     }
 
-    private void ControllerMainMenu_onPlayButtonClicked ()
-    {
-        throw new NotImplementedException();
-    }
+    private void ControllerMainMenu_onPlayButtonClicked () => SwitchController(durationFade, controllerLevelSelector.canvasGroup, controllerMainMenu.canvasGroup);
 
     private void ControllerMainMenu_onSettingsButtonClicked () => SwitchController(durationFade, controllerSettings.canvasGroup, controllerMainMenu.canvasGroup);
 
@@ -96,5 +102,13 @@ public class UiScreenMainMenu : MonoBehaviour
         canvasGroup.alpha = isEnable ? 1 : 0;
         canvasGroup.blocksRaycasts = isEnable;
         canvasGroup.interactable = isEnable;
+    }
+
+    private void ControllerLevelSelector_onLevelSelected(UiLevel obj)
+    {
+        var sceneName = allLevels[0].ScenePath.Split("/")[^1].Split(".")[0];
+        SceneReference sceneToLoad = allLevels.Find(s => s.ScenePath.Split("/")[^1].Split(".")[0] == obj.nameScene);
+        sceneChangeData.SetScene(sceneToLoad);
+        SceneSwitcher.ChangeScene(sceneChangeData);
     }
 }

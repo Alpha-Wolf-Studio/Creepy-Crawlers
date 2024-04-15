@@ -216,9 +216,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pushbound:
-    m_Center: {x: 0, y: 7.25, z: 0}
+    m_Center: {x: 0, y: 7, z: 0}
     m_Extent: {x: 2, y: 5, z: 0}
-  forceToAdd: 5
+  forceToAdd: 3
   gnomesLayer:
     serializedVersion: 2
     m_Bits: 64

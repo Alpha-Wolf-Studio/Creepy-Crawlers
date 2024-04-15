@@ -1,35 +1,97 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
-namespace Gnome
+namespace Gnomes
 {
     public class Gnome : MonoBehaviour
     {
-        private static readonly int IsAlive = Animator.StringToHash("IsAlive");
+        [SerializeField] private int MaxHeightFall = -9;
+        private static readonly int States = Animator.StringToHash("States");
 
         [SerializeField] private GnomeStats gnomeStats = new GnomeStats();
-        [SerializeField] private Direction direction = Direction.Left;
-        [SerializeField] private LayerMask layerMaskCollision;
         [SerializeField] private Animator animator;
+        [SerializeField] private CollisionDetect gnomeForward;
+        [SerializeField] private CollisionDetect gnomeFloor;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        private Direction direction = Direction.Right;
+        private bool isAlive = true;
+        private float lastFallSpeed = 0;
 
         public bool IsFalling { get; private set; }
         public Rigidbody2D Rigidbody2D { get; private set; }
         public GnomeStats GnomeStats => gnomeStats;
 
+        public static Action OnKeyPickUp;
+
         private void Awake()
         {
             Rigidbody2D = GetComponent<Rigidbody2D>();
+            spriteRenderer = animator.GetComponent<SpriteRenderer>();
+            AddAllListeners();
         }
 
         private void Update()
         {
-            CheckForwardCollision();
-            CheckFallCollision();
+            if (isAlive)
+                CheckFall();
+        }
+
+        private void CheckFall()
+        {
+            if (lastFallSpeed > MaxHeightFall && Rigidbody2D.velocity.y < MaxHeightFall)
+            {
+                spriteRenderer.color = Color.magenta;
+            }
+
+            lastFallSpeed = Rigidbody2D.velocity.y;
         }
 
         private void FixedUpdate()
         {
-            Move();
+            if (isAlive)
+                Move();
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            Pickable pickable = other.GetComponent<Pickable>();
+            if (pickable != null)
+            {
+                pickable.PickUp();
+                switch (pickable.pickableType)
+                {
+                    case PickableType.Key:
+                        GnomeStats.keyAmount++;
+                        OnKeyPickUp?.Invoke();
+                        break;
+                    case PickableType.Star:
+                        GnomeStats.starAmount++;
+                        break;
+                    default:
+                        Debug.LogWarning("Este pickable no posee tipo");
+                        break;
+                }
+            }
+        }
+
+        private void OnDestroy()
+        {
+            RemoveAllListeners();
+        }
+
+        private void AddAllListeners()
+        {
+            gnomeForward.onCollisionEnter += GnomeForward_onCollisionEnter;
+            gnomeFloor.onCollisionEnter += GnomeFloor_onCollisionEnter;
+            gnomeFloor.onEmptyCollisions += GnomeFloor_onEmptyCollisions;
+        }
+
+        private void RemoveAllListeners()
+        {
+            gnomeForward.onCollisionEnter -= GnomeForward_onCollisionEnter;
+            gnomeFloor.onCollisionEnter -= GnomeFloor_onCollisionEnter;
+            gnomeFloor.onEmptyCollisions -= GnomeFloor_onEmptyCollisions;
         }
 
         /// <summary>
@@ -39,6 +101,11 @@ namespace Gnome
         public void Set(int direction)
         {
             this.direction = (Direction)direction;
+            if (this.direction == Direction.Left)
+            {
+                transform.Rotate(Vector3.up, 180f);
+                Rigidbody2D.velocity = Vector2.zero;
+            }
         }
 
         public void AddExternalVelocity(Vector2 forceToAdd, ForceMode2D forceMode2D)
@@ -48,8 +115,12 @@ namespace Gnome
 
         public void Kill()
         {
+            spriteRenderer.color = Color.red;
             direction = Direction.None;
-            animator.SetBool(IsAlive, false);
+            animator.SetInteger(States, (int)State.Death);
+            Rigidbody2D.velocity = Vector2.zero;
+            isAlive = false;
+            StartCoroutine(Dying());
         }
 
         private void Move()
@@ -64,46 +135,52 @@ namespace Gnome
                 }
 
                 Rigidbody2D.AddForce(new Vector2(forceToAdd * (int)direction, 0), ForceMode2D.Impulse);
-                Debug.Log("Push");
             }
         }
 
-        private void CheckForwardCollision()
+        private void GnomeFloor_onCollisionEnter()
         {
-            float raycastDistance = 0.1f;
-            RaycastHit2D hit =
-                    Physics2D.Raycast(transform.position, transform.right, raycastDistance, layerMaskCollision);
-
-            if (hit.collider != null)
+            if (Rigidbody2D.velocity.y < MaxHeightFall)
             {
-                if (direction == Direction.Left) direction = Direction.Right;
-                else if (direction == Direction.Right) direction = Direction.Left;
+                Kill();
+                return;
             }
+
+            animator.SetInteger(States, (int)State.Move);
+            spriteRenderer.color = Color.white;
         }
 
-        private void CheckFallCollision()
+        private void GnomeFloor_onEmptyCollisions()
         {
-
+            IsFalling = true;
+            animator.SetInteger(States, (int)State.Fall);
+            spriteRenderer.color = Color.cyan;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void GnomeForward_onCollisionEnter()
         {
-            Pickable pickable = other.GetComponent<Pickable>();
-            if (pickable != null)
+            transform.Rotate(Vector3.up, 180f);
+            Rigidbody2D.velocity = Vector2.zero;
+
+            if (direction == Direction.Left)
+                direction = Direction.Right;
+            else if (direction == Direction.Right)
+                direction = Direction.Left;
+        }
+
+        private IEnumerator Dying()
+        {
+            yield return new WaitForSeconds(1);
+            float onTime = 0;
+            float maxTime = 1;
+            Color from = spriteRenderer.color;
+            Color to = Color.clear;
+
+            while (onTime < maxTime)
             {
-                pickable.PickUp();
-                switch (pickable.pickableType)
-                {
-                    case PickableType.Key:
-                        GnomeStats.keyAmount++;
-                        break;
-                    case PickableType.Star:
-                        GnomeStats.starAmount++;
-                        break;
-                    default:
-                        Debug.LogWarning("Este pickable no posee tipo");
-                        break;
-                }
+                onTime += Time.deltaTime;
+                spriteRenderer.color = Color.Lerp(from, to, onTime);
+                yield return null;
             }
         }
     }

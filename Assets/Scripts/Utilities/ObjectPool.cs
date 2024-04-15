@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Utils
 {
+    [Serializable]
     public class ObjectPool : MonoBehaviour
     {
         public GameObject prefab;
