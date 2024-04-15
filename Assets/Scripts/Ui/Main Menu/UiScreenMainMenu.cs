@@ -26,6 +26,7 @@ public class UiScreenMainMenu : MonoBehaviour
         controllerSettings.onSettingsCloseButtonClicked += ControllerSettings_onSettingsCloseButtonClicked;
         controllerCredits.onCreditsCloseButtonClicked += ControllerCredits_onCreditsCloseButtonClicked;
         controllerLevelSelector.onLevelSelected += ControllerLevelSelector_onLevelSelected;
+        controllerLevelSelector.onCloseButton += ControllerLevelSelector_onCloseButton;
     }
 
     private void Start ()
@@ -66,6 +67,8 @@ public class UiScreenMainMenu : MonoBehaviour
     private void ControllerCredits_onCreditsCloseButtonClicked () => SwitchController(durationFade, controllerMainMenu.canvasGroup, controllerCredits.canvasGroup);
 
     private void ControllerSettings_onSettingsCloseButtonClicked () => SwitchController(durationFade, controllerMainMenu.canvasGroup, controllerSettings.canvasGroup);
+
+    private void ControllerLevelSelector_onCloseButton() => SwitchController(durationFade, controllerMainMenu.canvasGroup, controllerLevelSelector.canvasGroup);
 
     private void SwitchController (float duration, CanvasGroup on, CanvasGroup off)
     {
