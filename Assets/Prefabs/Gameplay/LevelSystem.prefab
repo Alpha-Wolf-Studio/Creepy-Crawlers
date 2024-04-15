@@ -46,4 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gnomesPercentageNeeded: 0.8
   maxGnomesInLevel: 20
+  maxKeysInLevel: 0
   secondsToStart: 2
+  audioClip: {fileID: 8300000, guid: 8992ad8ac89fc1f41bd802253ef61a02, type: 3}
+  audioMixerGroup: {fileID: -9192671762462077248, guid: c863f41792ccddc48b9abf05389a2d78, type: 2}

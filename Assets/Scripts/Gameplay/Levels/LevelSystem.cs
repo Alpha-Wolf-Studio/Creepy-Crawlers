@@ -8,11 +8,17 @@ namespace Gameplay.Levels
 {
     public class LevelSystem : MonoBehaviour
     {
+        [Header("Level Config")]
         [Range(0f,1f)]
         [SerializeField] private float gnomesPercentageNeeded;
         [SerializeField] private int maxGnomesInLevel;
         [SerializeField] private int maxKeysInLevel;
         [SerializeField] private float secondsToStart = 2;
+
+        [Header("Audio Config")]
+        [SerializeField] private AudioClip audioClip = null;
+        [SerializeField] private UnityEngine.Audio.AudioMixerGroup audioMixerGroup = null;
+        private AudioSource audioSource = null;
 
         private bool objectiveReached = false;
         private int keysObtained = 0;
@@ -21,6 +27,15 @@ namespace Gameplay.Levels
         public static Action<int> OnLevelStarted;
         public static Action OnGnomesReleased;
         public static Action OnKeysObjectiveReached;
+
+        private void Awake()
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.outputAudioMixerGroup = audioMixerGroup;
+            audioSource.clip = audioClip;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
 
         private void Start()
         {
