@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creatureDataList:
   - CreatureData: {fileID: 11400000, guid: c27345c018515204991ebfd31cb64265, type: 2}
-    CreatureAmount: 1
+    CreatureAmount: 5
   - CreatureData: {fileID: 11400000, guid: 01865949ffbdaf84c8a47384556fc879, type: 2}
     CreatureAmount: 1
   - CreatureData: {fileID: 11400000, guid: b929a97210704494abe5023750797247, type: 2}
