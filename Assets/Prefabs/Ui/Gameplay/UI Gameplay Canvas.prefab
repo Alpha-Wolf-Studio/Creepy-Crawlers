@@ -117,8 +117,26 @@ MonoBehaviour:
   creaturesManager: {fileID: 0}
   creaturesCardPrefab: {fileID: 950295978895080218, guid: c06a79f75ad2fce4cbd72bb6306b0544, type: 3}
   creaturesCardsHolder: {fileID: 4315012400795024953}
+  ownSceneChangeData:
+    sceneReference:
+      sceneAsset: {fileID: 102900000, guid: 0da15dd47c51c3f4b8c5ee4c177011e9, type: 3}
+      scenePath: Assets/Scenes/Gameplay.unity
+    transitionControlPrefab: {fileID: 7606104316507084454, guid: 446595120ecd3884288d97150211d853, type: 3}
+    transitionSpeed: 1
+    minTransitionTime: 1
+    loadingBarPrefab: {fileID: 0}
+    loadingBarVisibility: 0
   gameflowButtonsHolder: {fileID: 2078702100126690023}
   configurationsPopUp: {fileID: 5341057254452450485}
+  mainMenuSceneChangeData:
+    sceneReference:
+      sceneAsset: {fileID: 102900000, guid: 6e80ae36ed91616488d03df3e12d11bf, type: 3}
+      scenePath: Assets/Scenes/MainMenu.unity
+    transitionControlPrefab: {fileID: 7606104316507084454, guid: 446595120ecd3884288d97150211d853, type: 3}
+    transitionSpeed: 1
+    minTransitionTime: 1
+    loadingBarPrefab: {fileID: 0}
+    loadingBarVisibility: 0
 --- !u!1 &9134774091654287236
 GameObject:
   m_ObjectHideFlags: 0
