@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Wall Creature
   m_EditorClassIdentifier: 
   creatureName: Wall Creature
-  creatureThumbnail: {fileID: 0}
+  creatureCardSprite: {fileID: 21300000, guid: 717cc3292bd22e645ad5f53d8eb2092d, type: 3}
   creatureSpawnerPrefab: {fileID: 6677042337394759667, guid: dbc3e9ae281278740a3ed702b4b8cbf1, type: 3}

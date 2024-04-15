@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Bridge Creature Data
   m_EditorClassIdentifier: 
   creatureName: Bridge Creature
-  creatureThumbnail: {fileID: 0}
+  creatureCardSprite: {fileID: 21300000, guid: 40d0c65fe7a726e40a5968e5163e83a4, type: 3}
   creatureSpawnerPrefab: {fileID: -1143923014822664309, guid: 56d0f90b70383d34f8641d6eb5012e21, type: 3}

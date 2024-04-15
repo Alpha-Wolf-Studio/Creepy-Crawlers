@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7321499792912128619}
   - component: {fileID: 7321499792912128620}
   - component: {fileID: -9124231748594982453}
+  - component: {fileID: 8469178274912550465}
   m_Layer: 0
   m_Name: Gnome Spawn
   m_TagString: Untagged
@@ -74,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Sprite: {fileID: 1430493157, guid: 2a9bb3d67280369478377fc820ddc829, type: 3}
+  m_Color: {r: 0.8653631, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,6 +101,26 @@ MonoBehaviour:
   spawnInOneRow: 1
   gnomesPool: {fileID: 0}
   spawnInterval: 1
-  spawnPosition: {x: 0, y: 0, z: 0}
+  spawnPosition: {x: 0, y: -2, z: 0}
   rows: 0
   rowSpawnInterval: 5
+--- !u!95 &8469178274912550465
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7321499792912128621}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e8da831ed43a2024aa77f723b09cf664, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

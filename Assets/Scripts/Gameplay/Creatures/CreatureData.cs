@@ -6,7 +6,7 @@ namespace Gameplay.Creatures
     public class CreatureData : ScriptableObject
     {
         public string creatureName;
-        public Sprite creatureThumbnail;
+        public Sprite creatureCardSprite;
         public CreatureSpawner creatureSpawnerPrefab;
     }
 }
