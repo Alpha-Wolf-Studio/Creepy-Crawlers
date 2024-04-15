@@ -16,13 +16,6 @@ namespace UI.Gameplay
         [SerializeField] private Button resetGameButton;
         [SerializeField] private Button configurationsButton;
 
-        private TextMeshProUGUI _pauseButtonText;
-
-        private void Awake()
-        {
-            _pauseButtonText = pauseGameButton.GetComponentInChildren<TextMeshProUGUI>();
-        }
-
         void Start()
         {
             pauseGameButton.onClick.AddListener(CallPauseGameButtonEvent);
@@ -40,7 +33,6 @@ namespace UI.Gameplay
         private void CallPauseGameButtonEvent() 
         {
             PauseButtonPressedEvent?.Invoke();
-            _pauseButtonText.text = Time.timeScale == 1 ? "Pause" : "Unpause";
         }
 
         private void CallResetGameButtonEvent()
