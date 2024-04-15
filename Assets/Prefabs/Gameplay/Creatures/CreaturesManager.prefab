@@ -46,14 +46,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creatureDataList:
   - CreatureData: {fileID: 11400000, guid: c27345c018515204991ebfd31cb64265, type: 2}
-    CreatureAmount: 1
+    CreatureAmount: 2
   - CreatureData: {fileID: 11400000, guid: 01865949ffbdaf84c8a47384556fc879, type: 2}
-    CreatureAmount: 1
+    CreatureAmount: 0
   - CreatureData: {fileID: 11400000, guid: b929a97210704494abe5023750797247, type: 2}
-    CreatureAmount: 1
+    CreatureAmount: 2
   - CreatureData: {fileID: 11400000, guid: 67c10c2358e7e8446bdcf9f781362d12, type: 2}
-    CreatureAmount: 1
+    CreatureAmount: 0
   - CreatureData: {fileID: 11400000, guid: 7753b4826a69efe47961d2be6c05b04a, type: 2}
-    CreatureAmount: 1
+    CreatureAmount: 2
   - CreatureData: {fileID: 11400000, guid: 8a7d5f6f0701c584982bb88da3523025, type: 2}
     CreatureAmount: 1
