@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2126,6 +2126,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gnome Exit
       objectReference: {fileID: 0}
+    - target: {fileID: 4410939009763635291, guid: 38e151c2376aa304889a6ab24df6dbb1, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410939009763635291, guid: 38e151c2376aa304889a6ab24df6dbb1, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410939009763635291, guid: 38e151c2376aa304889a6ab24df6dbb1, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8221867741774402355, guid: 38e151c2376aa304889a6ab24df6dbb1, type: 3}
       propertyPath: gnomesPool
       value: 
@@ -2335,6 +2347,18 @@ PrefabInstance:
     - target: {fileID: 7321499792912128619, guid: cc755b7dcddd6764ea1b32123d8426c3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321499792912128620, guid: cc755b7dcddd6764ea1b32123d8426c3, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321499792912128620, guid: cc755b7dcddd6764ea1b32123d8426c3, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321499792912128620, guid: cc755b7dcddd6764ea1b32123d8426c3, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7321499792912128621, guid: cc755b7dcddd6764ea1b32123d8426c3, type: 3}
       propertyPath: m_Name
