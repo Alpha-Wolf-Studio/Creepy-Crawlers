@@ -7,7 +7,7 @@ namespace UI.Gameplay
 {
     public class UICreaturesCardHolder : MonoBehaviour
     {
-        public event Action<CreatureData> OnCardSelected = delegate { };
+        public event Action<CreatureSceneData> OnCardSelected = delegate { };
 
         private readonly List<UICreaturesCard> _cardsInHolder = new();
 
@@ -43,6 +43,21 @@ namespace UI.Gameplay
             }
         }
 
+        public void UpdateCardsData() 
+        {
+            foreach (var card in _cardsInHolder)
+            {
+                card.UpdateCard();
+            }
+
+            List<UICreaturesCard> cardsToRemove = _cardsInHolder.FindAll(i => i.CreatureSceneData.CreatureAmount <= 0);
+            foreach (var card in cardsToRemove)
+            {
+                _cardsInHolder.Remove(card);
+                Destroy(card.gameObject);
+            }
+        }
+
         public void ChangeCardsLockState(bool locked)
         {
             foreach (var card in _cardsInHolder)
@@ -51,9 +66,9 @@ namespace UI.Gameplay
             }
         }
 
-        private void CallCardSelectedEvent(CreatureData creatureData) 
+        private void CallCardSelectedEvent(CreatureSceneData creatureSceneData) 
         {
-            OnCardSelected?.Invoke(creatureData);
+            OnCardSelected?.Invoke(creatureSceneData);
         }
     }
 }

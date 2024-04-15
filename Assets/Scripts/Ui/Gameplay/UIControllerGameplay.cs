@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using CustomSceneSwitcher.Switcher;
+using CustomSceneSwitcher.Switcher.Data;
 using Gameplay.Creatures;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace UI.Gameplay
 {
@@ -11,33 +12,18 @@ namespace UI.Gameplay
         [SerializeField] private CreaturesManager creaturesManager;
         [SerializeField] private UICreaturesCard creaturesCardPrefab;
         [SerializeField] private UICreaturesCardHolder creaturesCardsHolder;
+        [SerializeField] private SceneChangeData ownSceneChangeData;
 
         [Header("Top Panel")]
         [SerializeField] private UIGameflowButtonsHolder gameflowButtonsHolder;
         [SerializeField] private UIConfigurationsPopUp configurationsPopUp;
-
-        List<CreatureData> _creaturesData = new();
+        [SerializeField] private SceneChangeData mainMenuSceneChangeData;
 
         private bool _paused = false;
         private bool _configurationsPopUpOpen = false;
 
         private void Start()
         {
-            Initialize();
-        }
-
-        //TODO Connect with level specific data received from levels system
-        public void Initialize()
-        {
-            _creaturesData = creaturesManager.CreatureDataList;
-
-            foreach (var data in _creaturesData)
-            {
-                UICreaturesCard creaturesCard = Instantiate(creaturesCardPrefab);
-                creaturesCard.SetCard(data);
-                creaturesCardsHolder.AddCard(creaturesCard);
-            }
-
             creaturesCardsHolder.OnCardSelected += CreateCreatureSpawner;
             creaturesManager.CreatureSpawnedEvent += OnCreatureSpawned;
             creaturesManager.CreatureSpawnCancelEvent += OnCreatureSpawnCanceled;
@@ -49,11 +35,21 @@ namespace UI.Gameplay
             configurationsPopUp.GoToMenuButtonPressedEvent += GoToMenu;
         }
 
-        private void OnDestroy()
+        private void OnEnable()
         {
-            creaturesCardsHolder.OnCardSelected -= CreateCreatureSpawner;
+            creaturesManager.SceneCreaturesInitializedEvent += InitializeCreaturesCards;
+        }
+
+        private void OnDisable()
+        {
+            creaturesManager.SceneCreaturesInitializedEvent -= InitializeCreaturesCards;
+        }
+
+        private void OnDestroy()
+        {            
             creaturesManager.CreatureSpawnedEvent -= OnCreatureSpawned;
             creaturesManager.CreatureSpawnCancelEvent -= OnCreatureSpawnCanceled;
+            creaturesCardsHolder.OnCardSelected -= CreateCreatureSpawner;
 
             gameflowButtonsHolder.PauseButtonPressedEvent -= TogglePauseGame;
             gameflowButtonsHolder.ResetGameButtonPressedEvent -= ResetGame;
@@ -62,14 +58,25 @@ namespace UI.Gameplay
             configurationsPopUp.GoToMenuButtonPressedEvent -= GoToMenu;
         }
 
-        private void CreateCreatureSpawner(CreatureData data) 
+        public void InitializeCreaturesCards(List<CreatureSceneData> creaturesSceneData)
         {
-            creaturesManager.CreateSpawner(data);
+            foreach (var creatureSceneData in creaturesSceneData)
+            {
+                UICreaturesCard creaturesCard = Instantiate(creaturesCardPrefab);
+                creaturesCard.SetCard(creatureSceneData);
+                creaturesCardsHolder.AddCard(creaturesCard);
+            }
+        }
+
+        private void CreateCreatureSpawner(CreatureSceneData data) 
+        {
+            creaturesManager.CreateSpawner(data.CreatureData);
             creaturesCardsHolder.HideCards();
         }
 
-        private void OnCreatureSpawned(CreatureData data) 
+        private void OnCreatureSpawned() 
         {
+            creaturesCardsHolder.UpdateCardsData();
             creaturesCardsHolder.ShowCards();
         }
 
@@ -87,12 +94,12 @@ namespace UI.Gameplay
 
         private void ResetGame() 
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            SceneSwitcher.ChangeScene(ownSceneChangeData);
         }
 
         private void GoToMenu() 
         {
-            //TODO call to menu scene
+            SceneSwitcher.ChangeScene(mainMenuSceneChangeData);
         }
 
         private void ToggleConfigurationsMenu() 

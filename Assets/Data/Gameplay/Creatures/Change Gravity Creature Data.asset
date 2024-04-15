@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Change Gravity Creature Data
   m_EditorClassIdentifier: 
   creatureName: Change Gravity Creature
-  creatureThumbnail: {fileID: 0}
+  creatureCardSprite: {fileID: 21300000, guid: c9831bfb7b315674490a4f31ca6452a6, type: 3}
   creatureSpawnerPrefab: {fileID: 6457784414142865296, guid: e559766013d933743aa7c0c679249e7b, type: 3}
