@@ -39,8 +39,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 60}
+  m_AnchoredPosition: {x: 0, y: 5}
+  m_SizeDelta: {x: -49.999996, y: 45}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &5673010530634972742
 CanvasRenderer:
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -142,7 +142,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 38.528, y: 38.528}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2957851250738040531
 CanvasRenderer:
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ee1b2864b92b5f0458b49567794b43ec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -218,7 +218,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 38.528, y: 38.528}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2957851251435981991
 CanvasRenderer:
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ee1b2864b92b5f0458b49567794b43ec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -294,7 +294,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 38.528, y: 38.528}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2957851251487231684
 CanvasRenderer:
@@ -324,7 +324,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ee1b2864b92b5f0458b49567794b43ec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -477,7 +477,12 @@ MonoBehaviour:
   - {fileID: 2957851251435981988}
   - {fileID: 2957851250738040528}
   imgLocked: {fileID: 5668670935653099940}
+  myImage: {fileID: 7977330701300974783}
   button: {fileID: 7472310437465762751}
+  onSprite: {fileID: 21300000, guid: b7d76833e1fe1d74dabfa443dda962be, type: 3}
+  offSprite: {fileID: 21300000, guid: ee1b2864b92b5f0458b49567794b43ec, type: 3}
+  onSprite2: {fileID: 21300000, guid: 2a7d5c1ccadf4cc4ab9c165074b432f4, type: 3}
+  offSprite2: {fileID: 21300000, guid: 3a0808057c097a541adba2ae5a4646c9, type: 3}
   nameScene: Scene1
   stars: 0
   isLock: 1
@@ -501,7 +506,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b5f13645f14f07a408b39b87509056e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3a0808057c097a541adba2ae5a4646c9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
