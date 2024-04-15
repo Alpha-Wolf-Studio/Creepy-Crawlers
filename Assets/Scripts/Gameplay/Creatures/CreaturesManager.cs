@@ -1,18 +1,30 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Gameplay.Creatures
 {
     public class CreaturesManager : MonoBehaviour
     {
-        public event System.Action<CreatureData> CreatureSpawnedEvent = delegate { };
+        public event System.Action CreatureSpawnedEvent = delegate { };
         public event System.Action CreatureSpawnCancelEvent = delegate { };
+        public event System.Action<List<CreatureSceneData>> SceneCreaturesInitializedEvent = delegate { };
 
-        [SerializeField] private List<CreatureData> creatureDataList = new List<CreatureData>();
+        [SerializeField] private List<CreatureSceneData> creatureDataList = new();
 
-        public List<CreatureData> CreatureDataList => creatureDataList;
+        private List<CreatureSceneData> _creatureDataList = new();
 
         private CreatureSpawner _currentSpawner;
+
+        private void Start()
+        {
+            _creatureDataList = new();
+            foreach (var creatureData in creatureDataList)
+            {
+                _creatureDataList.Add(creatureData);
+            }
+            SceneCreaturesInitializedEvent?.Invoke(_creatureDataList);
+        }
 
         private void Update()
         {
@@ -40,7 +52,13 @@ namespace Gameplay.Creatures
 
         private void CallCreatureCreatedEvent(CreatureData creatureData) 
         {
-            CreatureSpawnedEvent?.Invoke(creatureData);
+            CreatureSceneData createdCreatureSceneData = creatureDataList.First(i => i.CreatureData == creatureData);
+            createdCreatureSceneData.CreatureAmount--;
+
+            if(createdCreatureSceneData.CreatureAmount <= 0)
+                creatureDataList.Remove(createdCreatureSceneData);
+
+            CreatureSpawnedEvent?.Invoke();
         }
     }
 }

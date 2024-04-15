@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Teleporter Creature Data
   m_EditorClassIdentifier: 
   creatureName: Teleporter Creature
-  creatureThumbnail: {fileID: 0}
+  creatureCardSprite: {fileID: 21300000, guid: 930f39e5087cf674fbcd6812be9b565f, type: 3}
   creatureSpawnerPrefab: {fileID: 5304050445364463880, guid: de92aa0d7a7f11346bca52088b980aea, type: 3}
