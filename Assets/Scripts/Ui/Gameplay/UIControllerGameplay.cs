@@ -66,6 +66,7 @@ namespace UI.Gameplay
                 creaturesCard.SetCard(creatureSceneData);
                 creaturesCardsHolder.AddCard(creaturesCard);
             }
+            creaturesCardsHolder.UpdateCards();
         }
 
         private void CreateCreatureSpawner(CreatureSceneData data) 
@@ -76,7 +77,7 @@ namespace UI.Gameplay
 
         private void OnCreatureSpawned() 
         {
-            creaturesCardsHolder.UpdateCardsData();
+            creaturesCardsHolder.UpdateCards();
             creaturesCardsHolder.ShowCards();
         }
 
