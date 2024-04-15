@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Gnomes
@@ -12,7 +13,7 @@ namespace Gnomes
         [SerializeField] private Animator animator;
         [SerializeField] private CollisionDetect gnomeForward;
         [SerializeField] private CollisionDetect gnomeFloor;
-
+        [SerializeField] private SpriteRenderer spriteRenderer;
         private Direction direction = Direction.Right;
         private bool isAlive = true;
         private float lastFallSpeed = 0;
@@ -26,19 +27,21 @@ namespace Gnomes
         private void Awake()
         {
             Rigidbody2D = GetComponent<Rigidbody2D>();
+            spriteRenderer = animator.GetComponent<SpriteRenderer>();
             AddAllListeners();
         }
 
         private void Update()
         {
-            CheckFall();
+            if (isAlive)
+                CheckFall();
         }
 
         private void CheckFall()
         {
             if (lastFallSpeed > MaxHeightFall && Rigidbody2D.velocity.y < MaxHeightFall)
             {
-                animator.GetComponent<SpriteRenderer>().color = Color.magenta; // Todo: Remover al implementar sprite y animacion
+                spriteRenderer.color = Color.magenta;
             }
 
             lastFallSpeed = Rigidbody2D.velocity.y;
@@ -112,11 +115,12 @@ namespace Gnomes
 
         public void Kill()
         {
-            animator.GetComponent<SpriteRenderer>().color = Color.red; // Todo: Remover al implementar sprite y animacion
+            spriteRenderer.color = Color.red;
             direction = Direction.None;
             animator.SetInteger(States, (int)State.Death);
             Rigidbody2D.velocity = Vector2.zero;
             isAlive = false;
+            StartCoroutine(Dying());
         }
 
         private void Move()
@@ -143,14 +147,14 @@ namespace Gnomes
             }
 
             animator.SetInteger(States, (int)State.Move);
-            animator.GetComponent<SpriteRenderer>().color = Color.white; // Todo: Remover al implementar sprite y animacion
+            spriteRenderer.color = Color.white;
         }
 
         private void GnomeFloor_onEmptyCollisions()
         {
             IsFalling = true;
             animator.SetInteger(States, (int)State.Fall);
-            animator.GetComponent<SpriteRenderer>().color = Color.cyan; // Todo: Remover al implementar sprite y animacion
+            spriteRenderer.color = Color.cyan;
         }
 
         private void GnomeForward_onCollisionEnter()
@@ -162,6 +166,22 @@ namespace Gnomes
                 direction = Direction.Right;
             else if (direction == Direction.Right)
                 direction = Direction.Left;
+        }
+
+        private IEnumerator Dying()
+        {
+            yield return new WaitForSeconds(1);
+            float onTime = 0;
+            float maxTime = 1;
+            Color from = spriteRenderer.color;
+            Color to = Color.clear;
+
+            while (onTime < maxTime)
+            {
+                onTime += Time.deltaTime;
+                spriteRenderer.color = Color.Lerp(from, to, onTime);
+                yield return null;
+            }
         }
     }
 
