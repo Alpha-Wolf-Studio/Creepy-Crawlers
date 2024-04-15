@@ -444,6 +444,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8261419047536963560, guid: 76b54f84f325d194db9c541132539809, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: dd993f87fd2819742862acb988a4b6be, type: 3}
+    - target: {fileID: 8261419047536963560, guid: 76b54f84f325d194db9c541132539809, type: 3}
+      propertyPath: audioMixerGroup
+      value: 
+      objectReference: {fileID: 3156052392243304486, guid: c863f41792ccddc48b9abf05389a2d78, type: 2}
     - target: {fileID: 9065220184755368941, guid: 76b54f84f325d194db9c541132539809, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
