@@ -81,7 +81,7 @@ namespace Gameplay.Gnomes
 
         private void SpawnGnome()
         {
-            Instantiate(prefabGnome, transform.position, Quaternion.identity, content);
+            GameObject go = Instantiate(prefabGnome, transform.position, Quaternion.identity, content);
             audioSource.Play();
             spawnAmount--;
         }
