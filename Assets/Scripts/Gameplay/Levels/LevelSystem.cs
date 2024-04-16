@@ -33,6 +33,7 @@ namespace Gameplay.Levels
         private bool objectiveReached = false;
         private int keysObtained = 0;
         private int starsObtained = 0;
+        private int gnomesAbsorbed = 0;
         private int gnomesDeleted = 0;
 
         public static Action<int> OnLevelStarted;
@@ -70,8 +71,6 @@ namespace Gameplay.Levels
             Gnome[] gnomes = FindObjectsOfType<Gnome>();
             for (int i = 0; i < gnomes.Length; i++)
                 gnomes[i].Kill();
-            SetResult();
-            ChangeScene();
         }
 
         private void Gnome_onDeleteGnome()
@@ -79,8 +78,6 @@ namespace Gameplay.Levels
             gnomesDeleted++;
             SetResult();
         }
-
-
 
         private void StartSummoning()
         {
@@ -96,35 +93,23 @@ namespace Gameplay.Levels
 
         private void AbsorbGnomeData(Gnome gnome)
         {
-            minGnomes--;
+            gnomesAbsorbed++;
             starsObtained += gnome.GnomeStats.starAmount;
         }
 
         private void SetResult()
         {
-            if (minGnomes < 1 && starsObtained > 1)
+            if (gnomesDeleted != maxGnomesInLevel)
+                return;
+
+            if (gnomesAbsorbed >= minGnomes && starsObtained >= 1)
                 SaveAndLoad.SaveLevel(level, 3);
-            else if (minGnomes < 1)
+            else if (gnomesAbsorbed >= minGnomes)
                 SaveAndLoad.SaveLevel(level, 2);
             else
                 SaveAndLoad.SaveLevel(level, 1);
 
-            Debug.Log("Genomes Deleted: " + gnomesDeleted);
-            if (gnomesDeleted == maxGnomesInLevel)
-            {
-                if (gnomesDeleted == maxGnomesInLevel)
-                {
-                    sceneChangeData.SetScene(currentLevel);
-                    SceneSwitcher.ChangeScene(sceneChangeData);
-                }
-                else
-                    ChangeScene();
-            }
-        }
-
-        private void ChangeScene()
-        {
-            sceneChangeData.SetScene(nextLevel);
+            sceneChangeData.SetScene(gnomesAbsorbed > 0 ? nextLevel : currentLevel);
             SceneSwitcher.ChangeScene(sceneChangeData);
         }
     }
