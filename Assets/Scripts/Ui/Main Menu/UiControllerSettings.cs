@@ -17,12 +17,23 @@ public class UiControllerSettings : MonoBehaviour
     [SerializeField] private Slider sliderVolumeEffect;
     [SerializeField] private Button closeButton;
 
+    private readonly string VolumenGeneralMixerKey = "VolumeGeneral";
+    private readonly string MusicGeneralMixerKey = "VolumeMusic";
+    private readonly string SFXGeneralMixerKey = "VolumeEffect";
+
     private void Awake ()
     {
         sliderVolumeGeneral.onValueChanged.AddListener(OnSliderVolumeGeneralChanged);
         sliderVolumeMusic.onValueChanged.AddListener(OnSliderVolumeMusicChanged);
         sliderVolumeEffect.onValueChanged.AddListener(OnSliderVolumeEffectChanged);
         closeButton.onClick.AddListener(OnSettingsCloseButtonClicked);
+    }
+
+    private void Start()
+    {
+        SetSliderStartValue(sliderVolumeGeneral, VolumenGeneralMixerKey);
+        SetSliderStartValue(sliderVolumeMusic, MusicGeneralMixerKey);
+        SetSliderStartValue(sliderVolumeEffect, SFXGeneralMixerKey);
     }
 
     private void OnDestroy ()
@@ -36,19 +47,28 @@ public class UiControllerSettings : MonoBehaviour
     private void OnSliderVolumeGeneralChanged(float volume)
     {
         float newValue = logarithm.Evaluate(volume) * maxVolume - maxVolume;
-        audioMixer.SetFloat("VolumeGeneral", newValue);
+        audioMixer.SetFloat(VolumenGeneralMixerKey, newValue);
     }
 
     private void OnSliderVolumeMusicChanged(float volume)
     {
         float newValue = logarithm.Evaluate(volume) * maxVolume - maxVolume;
-        audioMixer.SetFloat("VolumeMusic", newValue);
+        audioMixer.SetFloat(MusicGeneralMixerKey, newValue);
     }
 
     private void OnSliderVolumeEffectChanged(float volume)
     {
         float newValue = logarithm.Evaluate(volume) * maxVolume - maxVolume;
-        audioMixer.SetFloat("VolumeEffect", newValue);
+        audioMixer.SetFloat(SFXGeneralMixerKey, newValue);
+    }
+
+    private void SetSliderStartValue(Slider slider, string mixerKey) 
+    {
+        if (audioMixer.GetFloat(mixerKey, out float effectsValue))
+        {
+            float sliderValue = logarithm.InverseEvaluate((effectsValue + maxVolume) / maxVolume);
+            slider.SetValueWithoutNotify(sliderValue);
+        }
     }
 
     private void OnSettingsCloseButtonClicked () => onSettingsCloseButtonClicked?.Invoke();
