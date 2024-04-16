@@ -6,7 +6,7 @@ namespace Gameplay.Gnomes
 {
     public class GnomesSpawner : MonoBehaviour
     {
-        [SerializeField] private Transform content;
+        private Transform content;
         [SerializeField] private bool spawnInOneRow = true;
         [SerializeField] private float spawnInterval = 1f;
         [SerializeField] private GameObject prefabGnome;
@@ -28,6 +28,8 @@ namespace Gameplay.Gnomes
             audioSource.outputAudioMixerGroup = audioMixerGroup;
             audioSource.clip = audioClip;
             audioSource.loop = false;
+            content = new GameObject().transform;
+            content.name = "Content";
         }
 
         private void OnDestroy()

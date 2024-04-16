@@ -101,7 +101,7 @@ MonoBehaviour:
   content: {fileID: 0}
   spawnInOneRow: 1
   spawnInterval: 1
-  prefabGnome: {fileID: 0}
+  prefabGnome: {fileID: 7349347397009457476, guid: f5c431628dcb0ec41a57e4249a57c7b8, type: 3}
   spawnAmount: 10
   rows: 0
   rowSpawnInterval: 5
