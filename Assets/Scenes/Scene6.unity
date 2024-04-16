@@ -2359,7 +2359,7 @@ Transform:
   - {fileID: 1949724970}
   - {fileID: 1291688606}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4410939009210203508
 PrefabInstance:
@@ -2553,6 +2553,14 @@ PrefabInstance:
       propertyPath: creaturesManager
       value: 
       objectReference: {fileID: 1043700936}
+    - target: {fileID: 8727949310017063790, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: ownSceneChangeData.sceneReference.scenePath
+      value: Assets/Scenes/Scene6.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727949310017063790, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: ownSceneChangeData.sceneReference.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 15e5dfe7f7811f64da47eb3e94a102df, type: 3}
     - target: {fileID: 9178287192478811616, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
