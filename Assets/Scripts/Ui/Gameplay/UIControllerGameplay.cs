@@ -24,6 +24,7 @@ namespace UI.Gameplay
 
         private void Start()
         {
+            Time.timeScale = 1;
             creaturesCardsHolder.OnCardSelected += CreateCreatureSpawner;
             creaturesManager.CreatureSpawnedEvent += OnCreatureSpawned;
             creaturesManager.CreatureSpawnCancelEvent += OnCreatureSpawnCanceled;
