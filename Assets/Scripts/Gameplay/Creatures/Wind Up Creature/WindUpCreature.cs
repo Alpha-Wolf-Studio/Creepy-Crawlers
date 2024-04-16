@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Gameplay.Creatures
@@ -9,6 +11,8 @@ namespace Gameplay.Creatures
         [SerializeField] private LayerMask gnomesLayer;
         [SerializeField] private LayerMask blockLayer;
 
+        List<Collider2D> _collidersToAffect = new List<Collider2D>();
+
         void Update()
         {
             Collider2D[] collidersInTheSlowdownZone = Physics2D.OverlapBoxAll(transform.position + pushbound.center, pushbound.size, 0, gnomesLayer);
@@ -18,17 +22,28 @@ namespace Gameplay.Creatures
                 float yDistance = collider.transform.position.y - transform.position.y - pushbound.min.y - .1f;
                 if (!Physics2D.Raycast(collider.transform.position, Vector2.down, yDistance, blockLayer)) 
                 {
-                    TryAddForce(collider, 1);
+                    if (!_collidersToAffect.Contains(collider))
+                        _collidersToAffect.Add(collider);
+                }
+            }
+
+            _collidersToAffect.RemoveAll(i => !collidersInTheSlowdownZone.Contains(i));
+        }
+
+        private void FixedUpdate()
+        {
+            foreach (var collider in _collidersToAffect)
+            {
+                if (collider.TryGetComponent(out Rigidbody2D rigidbody2D))
+                {
+                    TryAddForce(rigidbody2D, transform.up * forceToAdd);
                 }
             }
         }
 
-        private void TryAddForce(Collider2D collider, float gravityScale)
+        private void TryAddForce(Rigidbody2D rigidbody2D, Vector3 force)
         {
-            if (collider.TryGetComponent(out Rigidbody2D rigidbody2D))
-            {
-                rigidbody2D.AddForce(transform.up * forceToAdd);
-            }
+            rigidbody2D.AddForce(force);
         }
 
         private void OnDrawGizmosSelected()
