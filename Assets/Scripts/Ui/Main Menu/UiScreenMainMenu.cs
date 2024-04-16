@@ -15,7 +15,6 @@ public class UiScreenMainMenu : MonoBehaviour
     [SerializeField] private UiControllerCredits controllerCredits;
     [SerializeField] private AnimationCurve animationCurve;
     [SerializeField] private float durationFade = 1.0f;
-
     private IEnumerator switchPanel;
 
     private void Awake ()
@@ -109,7 +108,6 @@ public class UiScreenMainMenu : MonoBehaviour
 
     private void ControllerLevelSelector_onLevelSelected(UiLevel obj)
     {
-        var sceneName = allLevels[0].ScenePath.Split("/")[^1].Split(".")[0];
         SceneReference sceneToLoad = allLevels.Find(s => s.ScenePath.Split("/")[^1].Split(".")[0] == obj.nameScene);
         sceneChangeData.SetScene(sceneToLoad);
         SceneSwitcher.ChangeScene(sceneChangeData);

@@ -757,6 +757,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
+      propertyPath: sceneChangeData.sceneReference.scenePath
+      value: Assets/Scenes/Scene7.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
+      propertyPath: sceneChangeData.sceneReference.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 7ad99ca68ecc68e479115b2384e7b80c, type: 3}
     - target: {fileID: 8981836976648544995, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -4373,6 +4381,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 894822627851484202, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 894822627851484202, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 894822627851484202, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 894822627851484202, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1419018624751220450, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

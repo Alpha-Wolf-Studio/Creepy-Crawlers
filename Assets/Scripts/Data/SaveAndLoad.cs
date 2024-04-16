@@ -18,9 +18,19 @@ public static class SaveAndLoad
                 PlayerPrefs.SetInt(key, stars);
             }
         }
+        else
+            PlayerPrefs.SetInt(key, stars);
 
-        PlayerPrefs.SetInt(key, stars);
-        PlayerPrefs.SetInt(levelsPath, lvl);
+        if (PlayerPrefs.HasKey(levelsPath))
+        {
+            int savedLevels = PlayerPrefs.GetInt(levelsPath);
+            if (savedLevels > lvl)
+            {
+                PlayerPrefs.SetInt(levelsPath, lvl);
+            }
+        }
+        else
+            PlayerPrefs.SetInt(levelsPath, lvl);
     }
 
     public static SaveGame LoadAll()
