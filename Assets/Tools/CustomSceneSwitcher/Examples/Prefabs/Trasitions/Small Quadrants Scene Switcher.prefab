@@ -784,7 +784,7 @@ MonoBehaviour:
     m_Bits: 4294967295
 --- !u!95 &7838582443772607404
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -794,14 +794,14 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 22100000, guid: 5c7d92450dc853d458aa67936983c0f8, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7838582443772607405
 MonoBehaviour:
   m_ObjectHideFlags: 0

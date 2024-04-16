@@ -95,11 +95,13 @@ namespace UI.Gameplay
 
         private void ResetGame() 
         {
+            Time.timeScale = 1;
             SceneSwitcher.ChangeScene(ownSceneChangeData);
         }
 
         private void GoToMenu() 
         {
+            Time.timeScale = 1;
             SceneSwitcher.ChangeScene(mainMenuSceneChangeData);
         }
 
