@@ -1,8 +1,9 @@
 using UnityEngine;
 using Gameplay.Gnomes;
-using Gnomes;
 using System;
 using System.Collections;
+using UnityEngine.Audio;
+using Gnomes;
 
 namespace Gameplay.Levels
 {
@@ -17,12 +18,13 @@ namespace Gameplay.Levels
 
         [Header("Audio Config")]
         [SerializeField] private AudioClip audioClip = null;
-        [SerializeField] private UnityEngine.Audio.AudioMixerGroup audioMixerGroup = null;
+        [SerializeField] private AudioMixerGroup audioMixerGroup = null;
         private AudioSource audioSource = null;
 
         private bool objectiveReached = false;
         private int keysObtained = 0;
         private int starsObtained = 0;
+        private int gnomesDeleted = 0;
 
         public static Action<int> OnLevelStarted;
         public static Action OnGnomesReleased;
@@ -30,6 +32,7 @@ namespace Gameplay.Levels
 
         private void Awake()
         {
+            Gnome.onDeleteGnome += Gnome_onDeleteGnome;
             audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.outputAudioMixerGroup = audioMixerGroup;
             audioSource.clip = audioClip;
@@ -37,9 +40,13 @@ namespace Gameplay.Levels
             audioSource.Play();
         }
 
+        private void Gnome_onDeleteGnome()
+        {
+            gnomesDeleted++;
+        }
+
         private void Start()
         {
-            Gnome.OnKeyPickUp += CheckKeys;
             OnLevelStarted?.Invoke(maxGnomesInLevel);
             GnomeFinalGate.OnGnomeEntered += AbsorbGnomeData;
             StartSummoning();
@@ -47,7 +54,6 @@ namespace Gameplay.Levels
 
         private void OnDestroy()
         {
-            Gnome.OnKeyPickUp -= CheckKeys;
             GnomeFinalGate.OnGnomeEntered -= AbsorbGnomeData;
         }
 
@@ -61,23 +67,6 @@ namespace Gameplay.Levels
             yield return new WaitForSeconds(secondsToStart);
             OnGnomesReleased?.Invoke();
             yield return null;
-        }
-
-        private void CheckKeys()
-        {
-            keysObtained++;
-            if (keysObtained >= maxKeysInLevel)
-            {
-                OnKeysObjectiveReached?.Invoke();
-            }
-        }
-
-        private void PercentageReached(int gnomesDetected)
-        {
-            if((gnomesDetected / maxGnomesInLevel) > gnomesPercentageNeeded)
-            {
-                objectiveReached = true;
-            }
         }
 
         private void AbsorbGnomeData(Gnome gnome)
