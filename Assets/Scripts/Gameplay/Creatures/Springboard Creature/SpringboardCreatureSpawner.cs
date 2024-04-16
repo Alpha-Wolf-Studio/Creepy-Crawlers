@@ -32,12 +32,12 @@ namespace Gameplay.Creatures
             }
             else if (_currentSpawnState == SpawnState.SelectingRotation)
             {
-                _spawnPreview.transform.right = (GetPointerPositionInWorldPosition() - _spawnPreview.transform.position).normalized;
+                _spawnPreview.transform.up = (GetPointerPositionInWorldPosition() - _spawnPreview.transform.position).normalized;
 
                 if (IsSpawnButtonDown())
                 {
                     SpringboardCreature springBoardCreature = Instantiate(springboardCreature, _spawnPreview.transform.position, _spawnPreview.transform.rotation);
-                    springBoardCreature.SetReboundDirection(_spawnPreview.transform.right);
+                    springBoardCreature.SetReboundDirection(_spawnPreview.transform.up);
                     CreatureSpawnedEvent?.Invoke(Data);
                     Destroy(gameObject);
                 }
