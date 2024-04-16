@@ -7,7 +7,6 @@ namespace Gameplay.Gnomes
     public class GnomesSpawner : MonoBehaviour
     {
         private Transform content;
-        [SerializeField] private bool spawnInOneRow = true;
         [SerializeField] private float spawnInterval = 1f;
         [SerializeField] private GameObject prefabGnome;
         [SerializeField] private int spawnAmount = 10;
@@ -19,6 +18,7 @@ namespace Gameplay.Gnomes
         [SerializeField] private AudioClip audioClip = null;
         [SerializeField] private UnityEngine.Audio.AudioMixerGroup audioMixerGroup = null;
         private AudioSource audioSource = null;
+
         private void Awake()
         {
             LevelSystem.OnLevelStarted += SetMaxGnomes;

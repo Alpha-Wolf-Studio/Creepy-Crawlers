@@ -4,16 +4,17 @@ using System;
 using System.Collections;
 using UnityEngine.Audio;
 using Gnomes;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 namespace Gameplay.Levels
 {
     public class LevelSystem : MonoBehaviour
     {
-        [Header("Level Config")]
-        [Range(0f,1f)]
-        [SerializeField] private float gnomesPercentageNeeded;
+        [Header("Level Config")] 
+        public static int level = 0;
+        [SerializeField] private int minGnomes = 16;
         [SerializeField] private int maxGnomesInLevel;
-        [SerializeField] private int maxKeysInLevel;
         [SerializeField] private float secondsToStart = 2;
 
         [Header("Audio Config")]
@@ -38,8 +39,9 @@ namespace Gameplay.Levels
             audioSource.clip = audioClip;
             audioSource.loop = true;
             audioSource.Play();
+            level = SceneManager.GetActiveScene().buildIndex;
         }
-
+        
         private void Gnome_onDeleteGnome()
         {
             gnomesDeleted++;
@@ -50,6 +52,7 @@ namespace Gameplay.Levels
             OnLevelStarted?.Invoke(maxGnomesInLevel);
             GnomeFinalGate.OnGnomeEntered += AbsorbGnomeData;
             StartSummoning();
+            SaveAndLoad.SaveLevel(level, 1);
         }
 
         private void OnDestroy()
@@ -71,7 +74,12 @@ namespace Gameplay.Levels
 
         private void AbsorbGnomeData(Gnome gnome)
         {
+            minGnomes--;
             starsObtained += gnome.GnomeStats.starAmount;
+            if (minGnomes < 1 && starsObtained > 1)
+                SaveAndLoad.SaveLevel(level, 3);
+            else
+                SaveAndLoad.SaveLevel(level, 2);
         }
     }
 }

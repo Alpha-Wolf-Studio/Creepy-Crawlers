@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class SceneManager : MonoBehaviourSingleton<SceneManager>
+public class CustomSceneManager : MonoBehaviourSingleton<CustomSceneManager>
 {
     [SerializeField] float minTimeToLoadScene = 1f;
     [SerializeField] float timeBeforeSceneChange = 1f;
