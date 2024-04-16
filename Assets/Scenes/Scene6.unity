@@ -360,6 +360,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397133, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: creatureDataList.Array.data[0].CreatureAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397133, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: creatureDataList.Array.data[3].CreatureAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397133, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: creatureDataList.Array.data[4].CreatureAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203145088194397133, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
+      propertyPath: creatureDataList.Array.data[5].CreatureAmount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7203145088194397135, guid: dbe9596d59787ff49b7e774f353d20b1, type: 3}
       propertyPath: m_Name
       value: CreaturesManager
