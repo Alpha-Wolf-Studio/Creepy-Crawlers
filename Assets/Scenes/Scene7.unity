@@ -3058,6 +3058,14 @@ PrefabInstance:
       propertyPath: creaturesManager
       value: 
       objectReference: {fileID: 1043700936}
+    - target: {fileID: 8727949310017063790, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: ownSceneChangeData.sceneReference.scenePath
+      value: Assets/Scenes/Scene7.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727949310017063790, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: ownSceneChangeData.sceneReference.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 7ad99ca68ecc68e479115b2384e7b80c, type: 3}
     - target: {fileID: 9178287192478811616, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
