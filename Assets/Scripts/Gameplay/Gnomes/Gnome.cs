@@ -6,6 +6,7 @@ namespace Gnomes
 {
     public class Gnome : MonoBehaviour
     {
+        public static event Action onDeleteGnome;
         [SerializeField] private int MaxHeightFall = -9;
         private static readonly int States = Animator.StringToHash("States");
 
@@ -77,6 +78,7 @@ namespace Gnomes
 
         private void OnDestroy()
         {
+            onDeleteGnome?.Invoke();
             RemoveAllListeners();
         }
 
@@ -115,6 +117,7 @@ namespace Gnomes
 
         public void Kill()
         {
+            Rigidbody2D.isKinematic = true;
             spriteRenderer.color = Color.red;
             direction = Direction.None;
             animator.SetInteger(States, (int)State.Death);
@@ -182,6 +185,7 @@ namespace Gnomes
                 spriteRenderer.color = Color.Lerp(from, to, onTime);
                 yield return null;
             }
+            Destroy(gameObject);
         }
     }
 

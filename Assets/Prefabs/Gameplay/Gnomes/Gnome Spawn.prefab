@@ -98,10 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf56418bc997534ba5ba398f1f58435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  content: {fileID: 0}
   spawnInOneRow: 1
-  gnomesPool: {fileID: 0}
   spawnInterval: 1
-  spawnPosition: {x: 0, y: -2, z: 0}
+  prefabGnome: {fileID: 0}
+  spawnAmount: 10
   rows: 0
   rowSpawnInterval: 5
   audioClip: {fileID: 8300000, guid: f833669298fc78e43b6505f12102f193, type: 3}

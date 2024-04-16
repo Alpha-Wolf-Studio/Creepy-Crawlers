@@ -1,15 +1,13 @@
-using Gameplay.Levels;
 using System;
 using UnityEngine;
-using Utils;
+using Gameplay.Levels;
 using Gnomes;
 
 namespace Gameplay.Gnomes
 {
     public class GnomeFinalGate : MonoBehaviour
     {
-        [SerializeField] private ObjectPool gnomesPool;
-        private bool isOpen = false;
+        [SerializeField] private bool isOpen = false;
 
         public static Action<Gnome> OnGnomeEntered;
 
@@ -23,16 +21,13 @@ namespace Gameplay.Gnomes
             LevelSystem.OnKeysObjectiveReached -= EnableDoor;
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (isOpen)
+            Gnome gnome = other.GetComponent<Gnome>();
+            if (gnome != null)
             {
-                Gnome gnome = other.GetComponent<Gnome>();
-                if (gnome != null)
-                {
-                    gnomesPool.ReturnObjectToPool(gnome.gameObject);
-                    OnGnomeEntered?.Invoke(gnome);
-                }
+                OnGnomeEntered?.Invoke(gnome);
+                Destroy(gnome.gameObject);
             }
         }
 
@@ -40,7 +35,5 @@ namespace Gameplay.Gnomes
         {
             isOpen = true;
         }
-       
-
     }
 }
