@@ -42,6 +42,7 @@ namespace Gameplay.Levels
         private void Awake()
         {
             UIGameflowButtonsHolder.onFinishLevelPressed += UIGameflowButtonsHolder_onFinishLevelPressed;
+            GnomeFinalGate.OnGnomeEntered += AbsorbGnomeData;
             Gnome.onDeleteGnome += Gnome_onDeleteGnome;
             audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.outputAudioMixerGroup = audioMixerGroup;
@@ -49,6 +50,19 @@ namespace Gameplay.Levels
             audioSource.loop = true;
             audioSource.Play();
             level = SceneManager.GetActiveScene().buildIndex;
+        }
+
+        private void Start()
+        {
+            OnLevelStarted?.Invoke(maxGnomesInLevel);
+            StartSummoning();
+        }
+
+        private void OnDestroy()
+        {
+            UIGameflowButtonsHolder.onFinishLevelPressed -= UIGameflowButtonsHolder_onFinishLevelPressed;
+            GnomeFinalGate.OnGnomeEntered -= AbsorbGnomeData;
+            Gnome.onDeleteGnome -= Gnome_onDeleteGnome;
         }
 
         private void UIGameflowButtonsHolder_onFinishLevelPressed()
@@ -66,18 +80,7 @@ namespace Gameplay.Levels
             SetResult();
         }
 
-        private void Start()
-        {
-            OnLevelStarted?.Invoke(maxGnomesInLevel);
-            GnomeFinalGate.OnGnomeEntered += AbsorbGnomeData;
-            StartSummoning();
-        }
 
-        private void OnDestroy()
-        {
-            UIGameflowButtonsHolder.onFinishLevelPressed -= UIGameflowButtonsHolder_onFinishLevelPressed;
-            GnomeFinalGate.OnGnomeEntered -= AbsorbGnomeData;
-        }
 
         private void StartSummoning()
         {
