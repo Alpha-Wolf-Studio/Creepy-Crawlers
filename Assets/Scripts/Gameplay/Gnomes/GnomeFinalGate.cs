@@ -26,8 +26,8 @@ namespace Gameplay.Gnomes
             Gnome gnome = other.GetComponent<Gnome>();
             if (gnome != null)
             {
-                OnGnomeEntered?.Invoke(gnome);
                 Destroy(gnome.gameObject);
+                OnGnomeEntered?.Invoke(gnome);
             }
         }
 

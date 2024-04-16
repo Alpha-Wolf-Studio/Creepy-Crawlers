@@ -2,7 +2,6 @@ using UnityEngine;
 using Gameplay.Gnomes;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.Audio;
 using Gnomes;
 using UnityEngine.SceneManagement;
@@ -16,14 +15,18 @@ namespace Gameplay.Levels
     public class LevelSystem : MonoBehaviour
     {
         [SerializeField] private SceneChangeData sceneChangeData;
-        [Header("Level Config")]
-        public static int level = 0;
+        [SerializeField] private SceneReference currentLevel;
+
+        [SerializeField] private SceneReference nextLevel;
+
+        [Header("Level Config")] public static int level = 0;
         [SerializeField] private int minGnomes = 16;
         [SerializeField] private int maxGnomesInLevel;
         [SerializeField] private float secondsToStart = 2;
 
-        [Header("Audio Config")]
-        [SerializeField] private AudioClip audioClip = null;
+        [Header("Audio Config")] [SerializeField]
+        private AudioClip audioClip = null;
+
         [SerializeField] private AudioMixerGroup audioMixerGroup = null;
         private AudioSource audioSource = null;
 
@@ -60,6 +63,7 @@ namespace Gameplay.Levels
         private void Gnome_onDeleteGnome()
         {
             gnomesDeleted++;
+            SetResult();
         }
 
         private void Start()
@@ -91,8 +95,6 @@ namespace Gameplay.Levels
         {
             minGnomes--;
             starsObtained += gnome.GnomeStats.starAmount;
-
-            SetResult();
         }
 
         private void SetResult()
@@ -104,12 +106,22 @@ namespace Gameplay.Levels
             else
                 SaveAndLoad.SaveLevel(level, 1);
 
+            Debug.Log("Genomes Deleted: " + gnomesDeleted);
             if (gnomesDeleted == maxGnomesInLevel)
-                ChangeScene();
+            {
+                if (gnomesDeleted == maxGnomesInLevel)
+                {
+                    sceneChangeData.SetScene(currentLevel);
+                    SceneSwitcher.ChangeScene(sceneChangeData);
+                }
+                else
+                    ChangeScene();
+            }
         }
 
         private void ChangeScene()
         {
+            sceneChangeData.SetScene(nextLevel);
             SceneSwitcher.ChangeScene(sceneChangeData);
         }
     }

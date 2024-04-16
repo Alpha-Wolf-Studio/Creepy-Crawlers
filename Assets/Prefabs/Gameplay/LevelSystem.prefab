@@ -44,9 +44,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48279bce66c8760448f094bb0e4f4618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gnomesPercentageNeeded: 0.8
+  sceneChangeData:
+    sceneReference:
+      sceneAsset: {fileID: 102900000, guid: 4350048b47ae4a641aa49d85d7ffa7a8, type: 3}
+      scenePath: Assets/Scenes/Scene2.unity
+    transitionControlPrefab: {fileID: 7606104316507084454, guid: 446595120ecd3884288d97150211d853, type: 3}
+    transitionSpeed: 0.5
+    minTransitionTime: 0.5
+    loadingBarPrefab: {fileID: 0}
+    loadingBarVisibility: 0
+  currentLevel:
+    sceneAsset: {fileID: 0}
+    scenePath: 
+  nextLevel:
+    sceneAsset: {fileID: 0}
+    scenePath: 
+  minGnomes: 16
   maxGnomesInLevel: 20
-  maxKeysInLevel: 0
   secondsToStart: 2
   audioClip: {fileID: 8300000, guid: 8992ad8ac89fc1f41bd802253ef61a02, type: 3}
   audioMixerGroup: {fileID: -9192671762462077248, guid: c863f41792ccddc48b9abf05389a2d78, type: 2}

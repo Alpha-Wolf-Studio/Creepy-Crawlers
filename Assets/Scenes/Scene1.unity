@@ -1307,9 +1307,25 @@ PrefabInstance:
       value: LevelSystem
       objectReference: {fileID: 0}
     - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
+      propertyPath: nextLevel.scenePath
+      value: Assets/Scenes/Scene2.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
       propertyPath: allLevels.Array.size
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
+      propertyPath: nextLevel.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 4350048b47ae4a641aa49d85d7ffa7a8, type: 3}
+    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
+      propertyPath: currentLevel.scenePath
+      value: Assets/Scenes/Scene1.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
+      propertyPath: currentLevel.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: e0a2dee6ab280e343bf745ea044e71dc, type: 3}
     - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
       propertyPath: allLevels.Array.data[0].scenePath
       value: Assets/Scenes/Scene1.unity
@@ -1374,14 +1390,6 @@ PrefabInstance:
       propertyPath: allLevels.Array.data[7].sceneAsset
       value: 
       objectReference: {fileID: 102900000, guid: 014429c737c26fd49bb5b610597213a0, type: 3}
-    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
-      propertyPath: sceneChangeData.sceneReference.scenePath
-      value: Assets/Scenes/Scene2.unity
-      objectReference: {fileID: 0}
-    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
-      propertyPath: sceneChangeData.sceneReference.sceneAsset
-      value: 
-      objectReference: {fileID: 102900000, guid: 4350048b47ae4a641aa49d85d7ffa7a8, type: 3}
     - target: {fileID: 8981836976648544995, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
       propertyPath: m_RootOrder
       value: 10

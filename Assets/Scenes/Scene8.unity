@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2197,6 +2197,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
+      propertyPath: nextLevel.scenePath
+      value: Assets/Scenes/MainMenu.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
+      propertyPath: nextLevel.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 6e80ae36ed91616488d03df3e12d11bf, type: 3}
+    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
+      propertyPath: currentLevel.scenePath
+      value: Assets/Scenes/Scene8.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
+      propertyPath: currentLevel.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 014429c737c26fd49bb5b610597213a0, type: 3}
     - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
       propertyPath: sceneChangeData.sceneReference.scenePath
       value: Assets/Scenes/MainMenu.unity
