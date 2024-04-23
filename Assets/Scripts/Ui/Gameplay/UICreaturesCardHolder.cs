@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Gameplay.Creatures;
+using TMPro;
 
 namespace UI.Gameplay
 {
@@ -9,7 +10,14 @@ namespace UI.Gameplay
     {
         public event Action<CreatureSceneData> OnCardSelected = delegate { };
 
+        [Header("Card Slot Position")]
+        [SerializeField] private UICardsSlot cardsSlot;
+        [SerializeField] private float cardSlotSmoothTime;
+        [SerializeField] private float hidePartiallyOffset;
+        [SerializeField] private float hideCompletelyOffset;
+
         [Header("Cards Positions")]
+        [SerializeField] private bool rotateCardsFromCenter;
         [SerializeField] private float offsetBetweenCards;
         [SerializeField] private float rotationFromCenterFactor;
 
@@ -19,12 +27,31 @@ namespace UI.Gameplay
 
         private readonly List<UICreaturesCard> _cardsInHolder = new();
 
-        public void AddCard(UICreaturesCard creaturesCard) 
-        {
-            _cardsInHolder.Add(creaturesCard);
+        private Vector3 _cardsSlotShownPosition = Vector3.zero;
+        private Vector3 _cardsSlotHidePartiallyPosition = Vector3.zero;
+        private Vector3 _cardsSlotHideCompletelyPosition = Vector3.zero;
+        private Vector3 _cardsSlotTarget = Vector3.zero;
+        private Vector3 _cardsSlotVelocity = Vector3.zero;
+        private bool _cardsSlotLock = false;
 
-            creaturesCard.transform.SetParent(transform, false);
-            creaturesCard.OnCardSelected += CallCardSelectedEvent;
+        private void Awake()
+        {
+            _cardsSlotShownPosition = cardsSlot.transform.localPosition;
+            _cardsSlotHidePartiallyPosition = new Vector3(_cardsSlotShownPosition.x, _cardsSlotShownPosition.y + hidePartiallyOffset, _cardsSlotShownPosition.z);
+            _cardsSlotHideCompletelyPosition = new Vector3(_cardsSlotShownPosition.x, _cardsSlotShownPosition.y + hideCompletelyOffset, _cardsSlotShownPosition.z);
+        }
+
+        private void Update()
+        {
+            cardsSlot.transform.localPosition = Vector3.SmoothDamp(cardsSlot.transform.localPosition, _cardsSlotTarget, ref _cardsSlotVelocity, cardSlotSmoothTime);
+
+            if (!_cardsSlotLock) 
+            {
+                if (cardsSlot.PointerInSlot)
+                    ShowCards();
+                else
+                    HideCardsPartially();
+            }
         }
 
         private void OnDestroy()
@@ -35,21 +62,44 @@ namespace UI.Gameplay
             }
         }
 
+        public void AddCard(UICreaturesCard creaturesCard)
+        {
+            _cardsInHolder.Add(creaturesCard);
+
+            creaturesCard.transform.SetParent(cardsSlot.transform, false);
+            creaturesCard.ChangeInteractableState(true);
+            creaturesCard.OnCardSelected += CallCardSelectedEvent;
+        }
+
         public void ShowCards() 
         {
             foreach (var card in _cardsInHolder)
             {
-                card.gameObject.SetActive(true);
+                card.ChangeInteractableState(true);
             }
+            _cardsSlotTarget = _cardsSlotShownPosition;
         }
 
-        public void HideCards() 
+        public void HideCardsPartially() 
         {
             foreach (var card in _cardsInHolder)
             {
-                card.gameObject.SetActive(false);
+                card.ChangeInteractableState(false);
             }
+            _cardsSlotTarget = _cardsSlotHidePartiallyPosition;
         }
+
+        public void HideCardsCompletely() 
+        {
+            foreach (var card in _cardsInHolder)
+            {
+                card.ChangeInteractableState(false);
+            }
+            _cardsSlotTarget = _cardsSlotHideCompletelyPosition;
+        }
+
+        public void LockCardSlot() => _cardsSlotLock = true;
+        public void UnlockCardSlot() => _cardsSlotLock = false; 
 
         public void UpdateCards() 
         {
@@ -72,7 +122,7 @@ namespace UI.Gameplay
         {
             foreach (var card in _cardsInHolder)
             {
-                card.ChangeLockState(locked);
+                card.ChangeInteractableState(!locked);
             }
         }
 
@@ -83,12 +133,14 @@ namespace UI.Gameplay
             if(cardsAmount == 0)
                 return;
 
-            Vector3 centerPosition = transform.position;
+            Vector3 centerPosition = cardsSlot.transform.position;
             Vector3 startPosition = new Vector3(centerPosition.x - offsetBetweenCards * (cardsAmount / (float)2), centerPosition.y, centerPosition.z);
             Vector3 endPosition = new Vector3(centerPosition.x + offsetBetweenCards * (cardsAmount / (float)2), centerPosition.y, centerPosition.z);
 
             PositionCards(cardsAmount, startPosition, endPosition);
-            RotateCards(cardsAmount, centerPosition);
+
+            if(rotateCardsFromCenter)
+                RotateCards(cardsAmount, centerPosition);
         }
 
         private void PositionCards(int cardsAmount, Vector3 startPosition, Vector3 endPosition) 

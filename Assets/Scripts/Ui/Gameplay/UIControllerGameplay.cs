@@ -22,6 +22,11 @@ namespace UI.Gameplay
         private bool _paused = false;
         private bool _configurationsPopUpOpen = false;
 
+        private void OnEnable()
+        {
+            creaturesManager.SceneCreaturesInitializedEvent += InitializeCreaturesCards;
+        }
+
         private void Start()
         {
             Time.timeScale = 1;
@@ -34,11 +39,6 @@ namespace UI.Gameplay
             gameflowButtonsHolder.ConfigurationsButtonPressedEvent += ToggleConfigurationsMenu;
 
             configurationsPopUp.GoToMenuButtonPressedEvent += GoToMenu;
-        }
-
-        private void OnEnable()
-        {
-            creaturesManager.SceneCreaturesInitializedEvent += InitializeCreaturesCards;
         }
 
         private void OnDisable()
@@ -63,6 +63,8 @@ namespace UI.Gameplay
         {
             foreach (var creatureSceneData in creaturesSceneData)
             {
+                if (creatureSceneData.CreatureAmount == 0) continue;
+
                 UICreaturesCard creaturesCard = Instantiate(creaturesCardPrefab);
                 creaturesCard.SetCard(creatureSceneData);
                 creaturesCardsHolder.AddCard(creaturesCard);
@@ -73,18 +75,21 @@ namespace UI.Gameplay
         private void CreateCreatureSpawner(CreatureSceneData data) 
         {
             creaturesManager.CreateSpawner(data.CreatureData);
-            creaturesCardsHolder.HideCards();
+            creaturesCardsHolder.HideCardsCompletely();
+            creaturesCardsHolder.LockCardSlot();
         }
 
         private void OnCreatureSpawned() 
         {
             creaturesCardsHolder.UpdateCards();
-            creaturesCardsHolder.ShowCards();
+            creaturesCardsHolder.HideCardsPartially();
+            creaturesCardsHolder.UnlockCardSlot();
         }
 
         private void OnCreatureSpawnCanceled() 
         {
-            creaturesCardsHolder.ShowCards();
+            creaturesCardsHolder.HideCardsPartially();
+            creaturesCardsHolder.UnlockCardSlot();
         }
 
         private void TogglePauseGame() 

@@ -3,28 +3,37 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Gameplay.Creatures;
+using UnityEngine.EventSystems;
+using System.Collections;
 
 namespace UI.Gameplay
 {
-    public class UICreaturesCard : MonoBehaviour
+    public class UICreaturesCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         public event Action<CreatureSceneData> OnCardSelected = delegate { };
         public CreatureSceneData CreatureSceneData => _creatureSceneData;
 
-        [SerializeField] private Button cardButton;
         [SerializeField] private Image cardCreatureImage;
         [SerializeField] private TextMeshProUGUI cardAmountText;
+        [SerializeField] private float cardSelectionScale = 1.25f;
 
         private CreatureSceneData _creatureSceneData;
+        private bool _pointerOnCard;
+        private bool _interactable;
 
-        private void Awake()
+        private void Update()
         {
-            cardButton.onClick.AddListener(CallCardSelectedEvent);
-        }
-
-        private void OnDestroy()
-        {
-            cardButton.onClick.RemoveListener(CallCardSelectedEvent);
+            if (_pointerOnCard) 
+            {
+                Vector3 newScale = Vector3.one;
+                newScale.x *= cardSelectionScale;
+                newScale.y *= cardSelectionScale;
+                transform.localScale = newScale;
+            }
+            else 
+            {
+                transform.localScale = Vector3.one;
+            }
         }
 
         public void SetCard(CreatureSceneData creatureSceneData) 
@@ -33,7 +42,7 @@ namespace UI.Gameplay
             UpdateCard();
         }
 
-        public void ChangeLockState(bool locked) => cardButton.interactable = !locked;
+        public void ChangeInteractableState(bool interactable) => _interactable = interactable;
 
         public void UpdateCard() 
         {
@@ -49,5 +58,15 @@ namespace UI.Gameplay
             OnCardSelected?.Invoke(_creatureSceneData);
         }
 
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            Debug.Log($"Pointer Click Event - Interactable {_interactable}");
+            if (_interactable)
+                CallCardSelectedEvent();
+        }
+
+        public void OnPointerEnter(PointerEventData eventData) => _pointerOnCard = true;
+
+        public void OnPointerExit(PointerEventData eventData) => _pointerOnCard = false;
     }
 }
