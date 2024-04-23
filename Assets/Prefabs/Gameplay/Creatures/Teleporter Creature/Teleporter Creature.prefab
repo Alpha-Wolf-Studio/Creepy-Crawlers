@@ -134,8 +134,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleporterSpawnPoint: {fileID: 7949120061784832433}
+  teleporterSpawnCheckCollider: {fileID: 1726689417317912789}
   teleporterFromVisual: {fileID: 3687228780126742627}
   teleporterToVisual: {fileID: 5715743386012172739}
+  teleporterType: 0
+  linkedCreature: {fileID: 0}
 --- !u!114 &2677719076051839060
 MonoBehaviour:
   m_ObjectHideFlags: 0

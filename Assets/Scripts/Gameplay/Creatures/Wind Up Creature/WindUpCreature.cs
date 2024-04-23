@@ -34,7 +34,7 @@ namespace Gameplay.Creatures
         {
             foreach (var collider in _collidersToAffect)
             {
-                if (collider.TryGetComponent(out Rigidbody2D rigidbody2D))
+                if (collider && collider.TryGetComponent(out Rigidbody2D rigidbody2D))
                 {
                     TryAddForce(rigidbody2D, transform.up * forceToAdd);
                 }

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallCreature: {fileID: -3918838969100431304, guid: 77a592f03ee51ba4eb583829cc06d3fc, type: 3}
-  previewPrefab: {fileID: 6091446344351884813, guid: 40a616edd17ac0243873422a90b88f22, type: 3}
+  previewPrefab: {fileID: 5279802269589497299, guid: 40a616edd17ac0243873422a90b88f22, type: 3}
   collisionCheckMask:
     serializedVersion: 2
     m_Bits: 128

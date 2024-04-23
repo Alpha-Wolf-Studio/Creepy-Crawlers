@@ -7,8 +7,8 @@ namespace Gameplay.Creatures
     {
         [Header("Spawn Configuration")]
         [SerializeField] private BridgeCreature bridgeCreature;
-        [SerializeField] private GameObject leftHandPreviewPrefab;
-        [SerializeField] private GameObject rightHandPreviewPrefab;
+        [SerializeField] private CreaturePreviewController leftHandPreviewPrefab;
+        [SerializeField] private CreaturePreviewController rightHandPreviewPrefab;
         [SerializeField] private float bridgeMinSize;
         [SerializeField] private float bridgeMaxSize;
 
@@ -17,8 +17,8 @@ namespace Gameplay.Creatures
         [SerializeField] private float hookDistanceFromTop;
         [SerializeField] private float solidBridgeTolerance;
 
-        private GameObject _leftHandPreview = null;
-        private GameObject _rightHandPreview = null;
+        private CreaturePreviewController _leftHandPreview = null;
+        private CreaturePreviewController _rightHandPreview = null;
 
         private SpawnState _currentSpawnState;
 
@@ -43,6 +43,7 @@ namespace Gameplay.Creatures
                 if (IsSpawnButtonDown())
                 {
                     _rightHandPreview = Instantiate(rightHandPreviewPrefab);
+
                     _currentSpawnState = SpawnState.SpawningRightHand;
                     CheckFirstHandHook();
                 }
@@ -130,11 +131,11 @@ namespace Gameplay.Creatures
         private void OnDestroy()
         {
             if (_leftHandPreview)
-                Destroy(_leftHandPreview);
+                Destroy(_leftHandPreview.gameObject);
             _leftHandPreview = null;
 
             if (_rightHandPreview)
-                Destroy(_rightHandPreview);
+                Destroy(_rightHandPreview.gameObject);
             _rightHandPreview = null;
         }
 

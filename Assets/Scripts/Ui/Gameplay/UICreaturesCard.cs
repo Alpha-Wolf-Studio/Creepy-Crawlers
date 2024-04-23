@@ -60,7 +60,6 @@ namespace UI.Gameplay
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log($"Pointer Click Event - Interactable {_interactable}");
             if (_interactable)
                 CallCardSelectedEvent();
         }

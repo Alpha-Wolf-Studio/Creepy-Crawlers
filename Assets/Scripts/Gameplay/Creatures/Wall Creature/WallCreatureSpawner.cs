@@ -6,13 +6,14 @@ namespace Gameplay.Creatures
     {
         [Header("Spawn Configuration")]
         [SerializeField] private WallCreature wallCreature;
-        [SerializeField] private GameObject previewPrefab;
+        [SerializeField] private CreaturePreviewController previewPrefab;
 
         [Header("Hook Configuration")]
         [SerializeField] private LayerMask collisionCheckMask;
 
-        private GameObject _spawnPreview = null;
+        private CreaturePreviewController _spawnPreview = null;
         private Bounds _creatureColliderBounds;
+        private bool _validSpawnPosition;
 
         private void Start()
         {
@@ -26,26 +27,30 @@ namespace Gameplay.Creatures
         {
             _spawnPreview.transform.position = GetPointerPositionInWorldPosition();
 
-            if (IsSpawnButtonDown())
+            SetValidSpawnBool();
+
+            if (_validSpawnPosition && IsSpawnButtonDown())
             {
-
-                Collider2D[] collidersInTheCreatureBounds = 
-                    Physics2D.OverlapBoxAll(_spawnPreview.transform.position + _creatureColliderBounds.center,
-                    _creatureColliderBounds.size, 0, collisionCheckMask);
-
-                if (collidersInTheCreatureBounds.Length > 0) 
-                {
-                    Instantiate(wallCreature, _spawnPreview.transform.position, Quaternion.identity);
-                    CreatureSpawnedEvent?.Invoke(Data);
-                    Destroy(gameObject);
-                }
+                Instantiate(wallCreature, _spawnPreview.transform.position, Quaternion.identity);
+                CreatureSpawnedEvent?.Invoke(Data);
+                Destroy(gameObject);
             }
+        }
+
+        private void SetValidSpawnBool() 
+        {
+            Collider2D[] collidersInTheCreatureBounds =
+                Physics2D.OverlapBoxAll(_spawnPreview.transform.position + _creatureColliderBounds.center,
+                _creatureColliderBounds.size, 0, collisionCheckMask);
+            _validSpawnPosition = collidersInTheCreatureBounds.Length > 0;
+
+            _spawnPreview.SetPreviewState(_validSpawnPosition ? CreaturePreviewController.PreviewState.Valid : CreaturePreviewController.PreviewState.Invalid);
         }
 
         private void OnDestroy()
         {
             if (_spawnPreview)
-                Destroy(_spawnPreview);
+                Destroy(_spawnPreview.gameObject);
             _spawnPreview = null;
         }
     }

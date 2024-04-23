@@ -11,6 +11,5 @@ namespace Gameplay.Creatures
             Vector3 size = col.size * transform.localScale;
             return new Bounds(col.offset, size);
         }
-        
     }
 }

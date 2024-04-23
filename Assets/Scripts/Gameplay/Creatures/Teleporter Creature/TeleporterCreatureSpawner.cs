@@ -7,13 +7,15 @@ namespace Gameplay.Creatures
         [Header("Spawner Configurations")]
         [SerializeField] private float maxRangeBetweenCreatures;
         [SerializeField] private TeleporterCreature teleporterCreature;
-        [SerializeField] private GameObject previewTeleporterFromPrefab;
-        [SerializeField] private GameObject previewTeleporterToPrefab;
+        [SerializeField] private CreaturePreviewController previewTeleporterFromPrefab;
+        [SerializeField] private CreaturePreviewController previewTeleporterToPrefab;
+        [SerializeField] private LayerMask collisionCheckMask;
 
-        private GameObject _fromSpawnPreview = null;
-        private GameObject _toSpawnPreview = null;
+        private CreaturePreviewController _fromSpawnPreview = null;
+        private CreaturePreviewController _toSpawnPreview = null;
 
         private SpawnState _currentSpawnState;
+        private Bounds _creatureColliderBounds;
 
         private void Start()
         {
@@ -21,6 +23,7 @@ namespace Gameplay.Creatures
                 _fromSpawnPreview = Instantiate(previewTeleporterFromPrefab);
 
             _currentSpawnState = SpawnState.SpawningFirstTeleporter;
+            _creatureColliderBounds = teleporterCreature.GetCreatureColliderBounds();
         }
 
         private void Update()
@@ -29,7 +32,9 @@ namespace Gameplay.Creatures
             {
                 _fromSpawnPreview.transform.position = GetPointerPositionInWorldPosition();
 
-                if (IsSpawnButtonDown())
+                bool validSpawn = IsValidSpawnPosition(_fromSpawnPreview);
+
+                if (validSpawn && IsSpawnButtonDown())
                 {
                     _toSpawnPreview = Instantiate(previewTeleporterToPrefab);
                     _currentSpawnState = SpawnState.SpawningSecondTeleporter;
@@ -47,8 +52,9 @@ namespace Gameplay.Creatures
 
                 _toSpawnPreview.transform.position = newPossiblePosition;
 
+                bool validSpawn = IsValidSpawnPosition(_toSpawnPreview);
 
-                if (IsSpawnButtonDown())
+                if (validSpawn && IsSpawnButtonDown())
                 {
                     TeleporterCreature firstTeleporter = Instantiate(teleporterCreature, _fromSpawnPreview.transform.position, Quaternion.identity);
                     TeleporterCreature secondTeleporter = Instantiate(teleporterCreature, _toSpawnPreview.transform.position, Quaternion.identity);
@@ -61,15 +67,27 @@ namespace Gameplay.Creatures
                 }
             }
         }
+        private bool IsValidSpawnPosition(CreaturePreviewController preview)
+        {
+            Collider2D[] collidersInTheCreatureBounds =
+                Physics2D.OverlapBoxAll(preview.transform.position + _creatureColliderBounds.center,
+                _creatureColliderBounds.size, 0, collisionCheckMask);
+            bool validSpawnPosition = collidersInTheCreatureBounds.Length == 0;
+
+            preview.SetPreviewState(validSpawnPosition ? CreaturePreviewController.PreviewState.Valid : CreaturePreviewController.PreviewState.Invalid);
+
+            return validSpawnPosition;
+        }
+
 
         private void OnDestroy()
         {
             if (_fromSpawnPreview)
-                Destroy(_fromSpawnPreview);
+                Destroy(_fromSpawnPreview.gameObject);
             _fromSpawnPreview = null;
 
             if (_toSpawnPreview)
-                Destroy(_toSpawnPreview);
+                Destroy(_toSpawnPreview.gameObject);
             _toSpawnPreview = null;
         }
 

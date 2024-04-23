@@ -9,6 +9,7 @@ namespace Gameplay.Creatures
     {
         [Header("Teleporter Data")]
         [SerializeField] private GameObject teleporterSpawnPoint;
+        [SerializeField] private BoxCollider2D teleporterSpawnCheckCollider;
 
         [Header("Teleporter Visual")]
         [SerializeField] private GameObject teleporterFromVisual;
@@ -59,6 +60,12 @@ namespace Gameplay.Creatures
 
             teleporterFromVisual.SetActive(newTeleporterType == TeleporterType.From);
             teleporterToVisual.SetActive(newTeleporterType == TeleporterType.To);
+        }
+
+        public Bounds GetCreatureColliderBounds()
+        {
+            Vector3 size = teleporterSpawnCheckCollider.size * transform.localScale;
+            return new Bounds(teleporterSpawnCheckCollider.offset, size);
         }
 
         public enum TeleporterType 

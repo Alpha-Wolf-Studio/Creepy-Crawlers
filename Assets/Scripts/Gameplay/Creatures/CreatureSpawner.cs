@@ -22,6 +22,7 @@ namespace Gameplay.Creatures
             Vector3 mousePos = Input.mousePosition;
             mousePos.z = -_mainCam.transform.position.z;
             Vector3 worldPos = _mainCam.ScreenToWorldPoint(mousePos);
+            worldPos.z += .1f;
             return worldPos;
         }
 
