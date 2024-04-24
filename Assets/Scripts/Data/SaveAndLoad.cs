@@ -5,7 +5,7 @@ public static class SaveAndLoad
 {
     public static SaveGame SaveGame { get; private set; }
     private const string valuePath = "Level";
-    private const string levelsPath = "MaxLevels";
+    private const string maxLevelPath = "MaxLevels";
 
     public static void SaveLevel(int lvl, int stars)
     {
@@ -21,16 +21,16 @@ public static class SaveAndLoad
         else
             PlayerPrefs.SetInt(key, stars);
 
-        if (PlayerPrefs.HasKey(levelsPath))
+        if (PlayerPrefs.HasKey(maxLevelPath))
         {
-            int savedLevels = PlayerPrefs.GetInt(levelsPath);
-            if (savedLevels > lvl)
+            int savedMaxLevel = PlayerPrefs.GetInt(maxLevelPath);
+            if (savedMaxLevel < lvl)
             {
-                PlayerPrefs.SetInt(levelsPath, lvl);
+                PlayerPrefs.SetInt(maxLevelPath, lvl);
             }
         }
         else
-            PlayerPrefs.SetInt(levelsPath, lvl);
+            PlayerPrefs.SetInt(maxLevelPath, lvl);
     }
 
     public static SaveGame LoadAll()
@@ -55,9 +55,9 @@ public static class SaveAndLoad
             lvl++;
         } while (gettingData);
 
-        if (PlayerPrefs.HasKey(levelsPath))
+        if (PlayerPrefs.HasKey(maxLevelPath))
         {
-            int maxLevels = PlayerPrefs.GetInt(levelsPath);
+            int maxLevels = PlayerPrefs.GetInt(maxLevelPath);
             SaveGame.maxLevel = maxLevels;
         }
 
