@@ -6209,22 +6209,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Gameplay Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 6311441830242223405, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6311441830242223405, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6311441830242223405, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6311441830242223405, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6373643301172510459, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
