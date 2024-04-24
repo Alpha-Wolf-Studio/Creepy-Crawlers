@@ -41,6 +41,7 @@ public class UiLevel : MonoBehaviour
         for (int i = 0; i < starsImages.Count; i++)
         {
             starsImages[i].sprite = stars > i ? onSprite : offSprite;
+            starsImages[i].color = isLocked ? Color.gray : Color.white;
         }
     }
 
