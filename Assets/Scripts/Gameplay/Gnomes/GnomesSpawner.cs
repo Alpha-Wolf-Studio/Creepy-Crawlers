@@ -38,9 +38,9 @@ namespace Gameplay.Gnomes
             LevelSystem.OnGnomesReleased -= SpawnAllGnomes;
         }
 
-        private void SetMaxGnomes(int max)
+        private void SetMaxGnomes(int level, int gnomesInLevel)
         {
-            spawnAmount = max;
+            spawnAmount = gnomesInLevel;
         }
 
         public void SpawnAllGnomes()

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CustomSceneSwitcher.Switcher;
 using CustomSceneSwitcher.Switcher.Data;
 using Gameplay.Creatures;
+using Gameplay.Levels;
 using UnityEngine;
 
 namespace UI.Gameplay
@@ -25,6 +26,8 @@ namespace UI.Gameplay
         private void OnEnable()
         {
             creaturesManager.SceneCreaturesInitializedEvent += InitializeCreaturesCards;
+            LevelSystem.OnGnomeAbsorbed += EnableFinishLevelButton;
+            LevelSystem.OnLevelStarted += CheckFinishLevelButtonStartingState;
         }
 
         private void Start()
@@ -39,11 +42,14 @@ namespace UI.Gameplay
             gameflowButtonsHolder.ConfigurationsButtonPressedEvent += ToggleConfigurationsMenu;
 
             configurationsPopUp.GoToMenuButtonPressedEvent += GoToMenu;
+
         }
 
         private void OnDisable()
         {
             creaturesManager.SceneCreaturesInitializedEvent -= InitializeCreaturesCards;
+            LevelSystem.OnGnomeAbsorbed -= EnableFinishLevelButton;
+            LevelSystem.OnLevelStarted -= CheckFinishLevelButtonStartingState;
         }
 
         private void OnDestroy()
@@ -115,6 +121,26 @@ namespace UI.Gameplay
         {
             _configurationsPopUpOpen = !_configurationsPopUpOpen;
             configurationsPopUp.gameObject.SetActive(_configurationsPopUpOpen);
+        }
+
+        private void EnableFinishLevelButton() => gameflowButtonsHolder.EnableFinishLevelButton();
+
+        private void DisableFinishLevelButton() => gameflowButtonsHolder.DisableFinishLevelButton();
+
+        private void CheckFinishLevelButtonStartingState(int currentLevel, int gnomesInLevel) 
+        {
+            if (SaveAndLoad.SaveGame != null) 
+            {
+                SaveGame saveGame = SaveAndLoad.SaveGame;
+                if (saveGame.maxLevel >= currentLevel)
+                    EnableFinishLevelButton();
+                else
+                    DisableFinishLevelButton();
+            }
+            else 
+            {
+                DisableFinishLevelButton();
+            }
         }
     }
 }

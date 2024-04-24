@@ -35,52 +35,60 @@ namespace Gameplay.Levels
         private int starsObtained = 0;
         private int gnomesAbsorbed = 0;
         private int gnomesDeleted = 0;
+        private bool isLevelActive = false;
 
-        public static Action<int> OnLevelStarted;
+        public static Action<int, int> OnLevelStarted;
+        public static Action OnGnomeAbsorbed;
         public static Action OnGnomesReleased;
         public static Action OnKeysObjectiveReached;
 
         private void Awake()
         {
-            UIGameflowButtonsHolder.onFinishLevelPressed += UIGameflowButtonsHolder_onFinishLevelPressed;
+            UIGameflowButtonsHolder.onFinishLevelPressed += FinishLevel;
             GnomeFinalGate.OnGnomeEntered += AbsorbGnomeData;
-            Gnome.onDeleteGnome += Gnome_onDeleteGnome;
+            Gnome.onDeleteGnome += CheckLevelConditions;
+
             audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.outputAudioMixerGroup = audioMixerGroup;
             audioSource.clip = audioClip;
             audioSource.loop = true;
             audioSource.Play();
+
             level = SceneManager.GetActiveScene().buildIndex;
         }
 
         private void Start()
         {
-            OnLevelStarted?.Invoke(maxGnomesInLevel);
+            OnLevelStarted?.Invoke(level, maxGnomesInLevel);
             StartSummoning();
         }
 
         private void OnDestroy()
         {
-            UIGameflowButtonsHolder.onFinishLevelPressed -= UIGameflowButtonsHolder_onFinishLevelPressed;
+            UIGameflowButtonsHolder.onFinishLevelPressed -= FinishLevel;
             GnomeFinalGate.OnGnomeEntered -= AbsorbGnomeData;
-            Gnome.onDeleteGnome -= Gnome_onDeleteGnome;
+            Gnome.onDeleteGnome -= CheckLevelConditions;
         }
 
-        private void UIGameflowButtonsHolder_onFinishLevelPressed()
-        {
-            Gnome[] gnomes = FindObjectsOfType<Gnome>();
-            for (int i = 0; i < gnomes.Length; i++)
-                gnomes[i].Kill();
-        }
-
-        private void Gnome_onDeleteGnome()
+        private void CheckLevelConditions()
         {
             gnomesDeleted++;
+
+            if (gnomesDeleted == maxGnomesInLevel)
+                FinishLevel();
+        }
+
+        private void FinishLevel()
+        {
+            if (!isLevelActive) return;
+
+            isLevelActive = false;
             SetResult();
         }
 
         private void StartSummoning()
         {
+            isLevelActive = true;
             StartCoroutine(RealeaseTheGnomes());
         }
 
@@ -95,13 +103,11 @@ namespace Gameplay.Levels
         {
             gnomesAbsorbed++;
             starsObtained += gnome.GnomeStats.starAmount;
+            OnGnomeAbsorbed?.Invoke();
         }
 
         private void SetResult()
         {
-            if (gnomesDeleted != maxGnomesInLevel)
-                return;
-
             if (gnomesAbsorbed >= minGnomes && starsObtained >= 1)
                 SaveAndLoad.SaveLevel(level, 3);
             else if (gnomesAbsorbed >= minGnomes)
@@ -109,7 +115,11 @@ namespace Gameplay.Levels
             else
                 SaveAndLoad.SaveLevel(level, 1);
 
-            sceneChangeData.SetScene(gnomesAbsorbed > 0 ? nextLevel : currentLevel);
+            SaveAndLoad.LoadAll();
+
+            bool currentLevelCleared = SaveAndLoad.SaveGame.maxLevel >= level;
+
+            sceneChangeData.SetScene(currentLevelCleared ? nextLevel : currentLevel);
             SceneSwitcher.ChangeScene(sceneChangeData);
         }
     }

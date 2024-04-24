@@ -12,7 +12,7 @@ namespace UI.Gameplay
         public event Action ConfigurationsButtonPressedEvent = delegate { };
 
         [Header("Buttons")]
-        [SerializeField] private Button FinishLevelButton;
+        [SerializeField] private Button finishLevelButton;
         [SerializeField] private Button pauseGameButton;
         [SerializeField] private Button resetGameButton;
         [SerializeField] private Button configurationsButton;
@@ -31,7 +31,7 @@ namespace UI.Gameplay
 
         void Start()
         {
-            FinishLevelButton.onClick.AddListener(OnFinishLevelButton);
+            finishLevelButton.onClick.AddListener(OnFinishLevelButton);
             pauseGameButton.onClick.AddListener(CallPauseGameButtonEvent);
             resetGameButton.onClick.AddListener(CallResetGameButtonEvent);
             configurationsButton.onClick.AddListener(CallConfigurationsButtonEvent);
@@ -41,11 +41,9 @@ namespace UI.Gameplay
             configurationsButton.onClick.AddListener(CallButtonSound);
         }
 
-        private void OnFinishLevelButton() => onFinishLevelPressed?.Invoke();
-
         private void OnDestroy()
         {
-            FinishLevelButton.onClick.RemoveAllListeners();
+            finishLevelButton.onClick.RemoveAllListeners();
             pauseGameButton.onClick.RemoveListener(CallPauseGameButtonEvent);
             resetGameButton.onClick.RemoveListener(CallResetGameButtonEvent);
             configurationsButton.onClick.RemoveListener(CallConfigurationsButtonEvent);
@@ -55,24 +53,17 @@ namespace UI.Gameplay
             configurationsButton.onClick.RemoveListener(CallButtonSound);
         }
 
-        private void CallPauseGameButtonEvent() 
-        {
-            PauseButtonPressedEvent?.Invoke();
-        }
+        public void DisableFinishLevelButton() => finishLevelButton.interactable = false;
+        public void EnableFinishLevelButton() => finishLevelButton.interactable = true;
 
-        private void CallResetGameButtonEvent()
-        {
-            ResetGameButtonPressedEvent?.Invoke();
-        }
+        private void OnFinishLevelButton() => onFinishLevelPressed?.Invoke();
 
-        private void CallConfigurationsButtonEvent() 
-        {
-            ConfigurationsButtonPressedEvent?.Invoke();
-        }
+        private void CallPauseGameButtonEvent() => PauseButtonPressedEvent?.Invoke();
 
-        private void CallButtonSound()
-        {
-            audioSource.Play();
-        }
+        private void CallResetGameButtonEvent() => ResetGameButtonPressedEvent?.Invoke();
+
+        private void CallConfigurationsButtonEvent() => ConfigurationsButtonPressedEvent?.Invoke();
+
+        private void CallButtonSound() => audioSource.Play();
     }
 }
