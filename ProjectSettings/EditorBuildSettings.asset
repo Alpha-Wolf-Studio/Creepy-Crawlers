@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scene8.unity
     guid: 014429c737c26fd49bb5b610597213a0
+  - enabled: 1
+    path: Assets/Scenes/PostGameScene.unity
+    guid: 36ff8c8231f93144ab3ba7cfd3898f5d
   m_configObjects: {}

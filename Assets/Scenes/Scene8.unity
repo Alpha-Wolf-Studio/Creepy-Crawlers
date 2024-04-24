@@ -3875,12 +3875,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
       propertyPath: nextLevel.scenePath
-      value: Assets/Scenes/MainMenu.unity
+      value: Assets/Scenes/PostGameScene.unity
       objectReference: {fileID: 0}
     - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
       propertyPath: nextLevel.sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: 6e80ae36ed91616488d03df3e12d11bf, type: 3}
+      objectReference: {fileID: 102900000, guid: 36ff8c8231f93144ab3ba7cfd3898f5d, type: 3}
     - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
       propertyPath: currentLevel.scenePath
       value: Assets/Scenes/Scene8.unity
@@ -3889,6 +3889,14 @@ PrefabInstance:
       propertyPath: currentLevel.sceneAsset
       value: 
       objectReference: {fileID: 102900000, guid: 014429c737c26fd49bb5b610597213a0, type: 3}
+    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
+      propertyPath: sceneChangeData.transitionSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
+      propertyPath: sceneChangeData.minTransitionTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5157578769983221184, guid: 09f8b037490f50941a2a638815a4fbb1, type: 3}
       propertyPath: sceneChangeData.sceneReference.scenePath
       value: Assets/Scenes/MainMenu.unity
@@ -6088,6 +6096,14 @@ PrefabInstance:
       propertyPath: ownSceneChangeData.sceneReference.sceneAsset
       value: 
       objectReference: {fileID: 102900000, guid: 014429c737c26fd49bb5b610597213a0, type: 3}
+    - target: {fileID: 8727949310017063790, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: mainMenuSceneChangeData.sceneReference.scenePath
+      value: Assets/Scenes/MainMenu.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727949310017063790, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: mainMenuSceneChangeData.sceneReference.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 6e80ae36ed91616488d03df3e12d11bf, type: 3}
     - target: {fileID: 9178287192478811616, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CustomSceneSwitcher.Switcher;
 using CustomSceneSwitcher.Switcher.Data;
+using CustomSceneSwitcher.Switcher.External;
 using Gameplay.Creatures;
 using Gameplay.Levels;
 using UnityEngine;
