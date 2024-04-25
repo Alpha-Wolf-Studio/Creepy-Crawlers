@@ -6222,6 +6222,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1043700936}
     - target: {fileID: 8727949310017063790, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: repeatLevelScene.scenePath
+      value: Assets/Scenes/Scene2.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727949310017063790, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: repeatLevelScene.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 4350048b47ae4a641aa49d85d7ffa7a8, type: 3}
+    - target: {fileID: 8727949310017063790, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: completeLevelScene.scenePath
+      value: Assets/Scenes/Scene3.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727949310017063790, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
+      propertyPath: completeLevelScene.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 07ae4fee1f95adb41aabe6c8834bae2b, type: 3}
+    - target: {fileID: 8727949310017063790, guid: 8464b68bd75dd544fbd2f5db09d314b1, type: 3}
       propertyPath: ownSceneChangeData.sceneReference.scenePath
       value: Assets/Scenes/Scene2.unity
       objectReference: {fileID: 0}

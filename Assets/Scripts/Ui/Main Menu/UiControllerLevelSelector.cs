@@ -22,16 +22,17 @@ public class UiControllerLevelSelector : MonoBehaviour
     private void Start()
     {
         SaveGame save = SaveAndLoad.LoadAll();
-        int index = 0;
 
-        for (index = 0; index < save.level.Count; index++)
+        int index;
+
+        for (index = 0; index < save.level.Count && index < levels.Count; index++)
             levels[index].Set(save.level[index].stars, false, "Scene" + (index + 1));
-
-        levels[index].Set(0, false, "Scene" + (index + 1));
-        index++;
 
         for (int i = index; i < levels.Count; i++)
             levels[i].Set(0, true, "Scene" + (i + 1));
+
+        if (levels[0].stars == 0)
+            levels[0].Set(0, false, "Scene" + 1);
     }
 
     private void OnDestroy()

@@ -7,19 +7,12 @@ using Gnomes;
 using UnityEngine.SceneManagement;
 using UI.Gameplay;
 using CustomSceneSwitcher.Switcher.Data;
-using CustomSceneSwitcher.Switcher.External;
-using CustomSceneSwitcher.Switcher;
 
 namespace Gameplay.Levels
 {
     public class LevelSystem : MonoBehaviour
     {
-        [SerializeField] private SceneChangeData sceneChangeData;
-        [SerializeField] private SceneReference currentLevel;
-
-        [SerializeField] private SceneReference nextLevel;
-
-        [Header("Level Config")] public static int level = 0;
+        [Header("Level Config")] 
         [SerializeField] private int minGnomes = 16;
         [SerializeField] private int maxGnomesInLevel;
         [SerializeField] private float secondsToStart = 2;
@@ -30,13 +23,14 @@ namespace Gameplay.Levels
         [SerializeField] private AudioMixerGroup audioMixerGroup = null;
         private AudioSource audioSource = null;
 
-        private bool objectiveReached = false;
-        private int keysObtained = 0;
         private int starsObtained = 0;
         private int gnomesAbsorbed = 0;
         private int gnomesDeleted = 0;
         private bool isLevelActive = false;
+        private int currentlevel = 0;
 
+        public static Action<int> OnLevelCleared;
+        public static Action<int> OnLevelFailed;
         public static Action<int, int> OnLevelStarted;
         public static Action OnGnomeAbsorbed;
         public static Action OnGnomesReleased;
@@ -54,12 +48,12 @@ namespace Gameplay.Levels
             audioSource.loop = true;
             audioSource.Play();
 
-            level = SceneManager.GetActiveScene().buildIndex;
+            currentlevel = SceneManager.GetActiveScene().buildIndex;
         }
 
         private void Start()
         {
-            OnLevelStarted?.Invoke(level, maxGnomesInLevel);
+            OnLevelStarted?.Invoke(currentlevel, maxGnomesInLevel);
             StartSummoning();
         }
 
@@ -109,18 +103,61 @@ namespace Gameplay.Levels
         private void SetResult()
         {
             if (gnomesAbsorbed >= minGnomes && starsObtained >= 1)
-                SaveAndLoad.SaveLevel(level, 3);
+                SaveAndLoad.SaveLevel(currentlevel, 3);
             else if (gnomesAbsorbed >= minGnomes)
-                SaveAndLoad.SaveLevel(level, 2);
+                SaveAndLoad.SaveLevel(currentlevel, 2);
             else
-                SaveAndLoad.SaveLevel(level, 1);
+                SaveAndLoad.SaveLevel(currentlevel, 1);
 
             SaveAndLoad.LoadAll();
 
-            bool currentLevelCleared = SaveAndLoad.SaveGame.maxLevel >= level;
+            bool currentLevelCleared = SaveAndLoad.SaveGame.maxLevel >= currentlevel;
 
-            sceneChangeData.SetScene(currentLevelCleared ? nextLevel : currentLevel);
-            SceneSwitcher.ChangeScene(sceneChangeData);
+            if (currentLevelCleared) 
+            {
+                OnLevelCleared?.Invoke(currentlevel);
+
+                if(currentlevel == SaveAndLoad.SaveGame.maxLevel)
+                    SaveAndLoad.SaveLevel(currentlevel + 1, 0);
+            }
+            else 
+            {
+                OnLevelFailed?.Invoke(currentlevel);
+            }
+        }
+
+        [ContextMenu("Test Auto Complete Level 1 Stars")]
+        private void AutoWin1Stars() => AutoWin(1);
+
+        [ContextMenu("Test Auto Complete Level 2 Stars")]
+        private void AutoWin2Stars() => AutoWin(2);
+
+        [ContextMenu("Test Auto Complete Level 3 Stars")]
+        private void AutoWin3Stars() => AutoWin(3);
+
+
+        private void AutoWin(int stars)
+        {
+            if (Application.isPlaying)
+            {
+                SaveAndLoad.SaveLevel(currentlevel, stars);
+
+                SaveAndLoad.LoadAll();
+
+                bool currentLevelCleared = SaveAndLoad.SaveGame.maxLevel >= currentlevel;
+
+                if (currentLevelCleared)
+                {
+                    OnLevelCleared?.Invoke(currentlevel);
+
+                    if (currentlevel == SaveAndLoad.SaveGame.maxLevel)
+                        SaveAndLoad.SaveLevel(currentlevel + 1, 0);
+                }
+                else
+                {
+                    OnLevelFailed?.Invoke(currentlevel);
+                }
+            }
         }
     }
 }

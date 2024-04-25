@@ -5,38 +5,47 @@ using CustomSceneSwitcher.Switcher.External;
 using Gameplay.Creatures;
 using Gameplay.Levels;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI.Gameplay
 {
     public class UIControllerGameplay : MonoBehaviour
     {
         [Header("Bottom Panel")]
-        [SerializeField] private CreaturesManager creaturesManager;
         [SerializeField] private UICreaturesCard creaturesCardPrefab;
         [SerializeField] private UICreaturesCardHolder creaturesCardsHolder;
-        [SerializeField] private SceneChangeData ownSceneChangeData;
+        [SerializeField] private SceneChangeData levelSceneChangeData;
 
         [Header("Top Panel")]
         [SerializeField] private UIGameflowButtonsHolder gameflowButtonsHolder;
         [SerializeField] private UIConfigurationsPopUp configurationsPopUp;
         [SerializeField] private SceneChangeData mainMenuSceneChangeData;
 
+        [Header("Scenes Data")]
+        [SerializeField] private SceneReference repeatLevelScene;
+        [SerializeField] private SceneReference completeLevelScene;
+
+        private CreaturesManager _creaturesManager;
         private bool _paused = false;
         private bool _configurationsPopUpOpen = false;
 
         private void OnEnable()
         {
-            creaturesManager.SceneCreaturesInitializedEvent += InitializeCreaturesCards;
+            _creaturesManager = FindObjectOfType<CreaturesManager>();
+            _creaturesManager.SceneCreaturesInitializedEvent += InitializeCreaturesCards;
+
             LevelSystem.OnGnomeAbsorbed += EnableFinishLevelButton;
             LevelSystem.OnLevelStarted += CheckFinishLevelButtonStartingState;
+            LevelSystem.OnLevelCleared += GoToNextLevel;
+            LevelSystem.OnLevelFailed += RepeatLevel;
         }
 
         private void Start()
         {
             Time.timeScale = 1;
             creaturesCardsHolder.OnCardSelected += CreateCreatureSpawner;
-            creaturesManager.CreatureSpawnedEvent += OnCreatureSpawned;
-            creaturesManager.CreatureSpawnCancelEvent += OnCreatureSpawnCanceled;
+            _creaturesManager.CreatureSpawnedEvent += OnCreatureSpawned;
+            _creaturesManager.CreatureSpawnCancelEvent += OnCreatureSpawnCanceled;
 
             gameflowButtonsHolder.PauseButtonPressedEvent += TogglePauseGame;
             gameflowButtonsHolder.ResetGameButtonPressedEvent += ResetGame;
@@ -48,15 +57,18 @@ namespace UI.Gameplay
 
         private void OnDisable()
         {
-            creaturesManager.SceneCreaturesInitializedEvent -= InitializeCreaturesCards;
+            _creaturesManager.SceneCreaturesInitializedEvent -= InitializeCreaturesCards;
+
             LevelSystem.OnGnomeAbsorbed -= EnableFinishLevelButton;
             LevelSystem.OnLevelStarted -= CheckFinishLevelButtonStartingState;
+            LevelSystem.OnLevelCleared -= GoToNextLevel;
+            LevelSystem.OnLevelFailed -= RepeatLevel;
         }
 
         private void OnDestroy()
         {            
-            creaturesManager.CreatureSpawnedEvent -= OnCreatureSpawned;
-            creaturesManager.CreatureSpawnCancelEvent -= OnCreatureSpawnCanceled;
+            _creaturesManager.CreatureSpawnedEvent -= OnCreatureSpawned;
+            _creaturesManager.CreatureSpawnCancelEvent -= OnCreatureSpawnCanceled;
             creaturesCardsHolder.OnCardSelected -= CreateCreatureSpawner;
 
             gameflowButtonsHolder.PauseButtonPressedEvent -= TogglePauseGame;
@@ -81,7 +93,7 @@ namespace UI.Gameplay
 
         private void CreateCreatureSpawner(CreatureSceneData data) 
         {
-            creaturesManager.CreateSpawner(data.CreatureData);
+            _creaturesManager.CreateSpawner(data.CreatureData);
             creaturesCardsHolder.HideCardsCompletely();
             creaturesCardsHolder.LockCardSlot();
         }
@@ -109,7 +121,9 @@ namespace UI.Gameplay
         private void ResetGame() 
         {
             Time.timeScale = 1;
-            SceneSwitcher.ChangeScene(ownSceneChangeData);
+
+            levelSceneChangeData.SetScene(repeatLevelScene);
+            SceneSwitcher.ChangeScene(levelSceneChangeData);
         }
 
         private void GoToMenu() 
@@ -142,6 +156,20 @@ namespace UI.Gameplay
             {
                 DisableFinishLevelButton();
             }
+        }
+
+        private void GoToNextLevel(int currentLevel) 
+        {
+            Time.timeScale = 1;
+            levelSceneChangeData.SetScene(completeLevelScene);
+            SceneSwitcher.ChangeScene(levelSceneChangeData);
+        }
+
+        private void RepeatLevel(int currentLevel) 
+        {
+            Time.timeScale = 1;
+            levelSceneChangeData.SetScene(repeatLevelScene);
+            SceneSwitcher.ChangeScene(levelSceneChangeData);
         }
     }
 }

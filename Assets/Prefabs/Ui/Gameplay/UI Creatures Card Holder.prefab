@@ -141,14 +141,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardsSlot: {fileID: 1695552387045772054}
   cardSlotSmoothTime: 0.3
-  hidePartiallyOffset: -150
+  hidePartiallyOffset: -250
   hideCompletelyOffset: -450
   rotateCardsFromCenter: 0
-  offsetBetweenCards: 100
+  offsetBetweenCards: 175
   rotationFromCenterFactor: 500
   yOffsetCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -2
+      outSlope: -2
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

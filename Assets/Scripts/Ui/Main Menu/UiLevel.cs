@@ -9,8 +9,11 @@ public class UiLevel : MonoBehaviour
     [SerializeField] private Image imgLocked;
     [SerializeField] private Image myImage;
     [SerializeField] private Button button;
-    [SerializeField] private Sprite onSprite;
-    [SerializeField] private Sprite offSprite;
+    [SerializeField] private Sprite onStarSprite;
+    [SerializeField] private Sprite offStarSprite;
+    [SerializeField] private Sprite middleStarSpriteOn;
+    [SerializeField] private Sprite middleStarSpriteHalfOn;
+    [SerializeField] private Sprite middleStarSpriteOff;
     [SerializeField] private Sprite onSprite2;
     [SerializeField] private Sprite offSprite2;
 
@@ -19,8 +22,11 @@ public class UiLevel : MonoBehaviour
     public int stars = 0;
     public bool isLock = true;
 
+    private UiButtonEffect buttonEffect;
+
     private void Awake()
     {
+        buttonEffect = GetComponent<UiButtonEffect>();
         button.onClick.AddListener(onLevelClicked);
     }
 
@@ -40,9 +46,18 @@ public class UiLevel : MonoBehaviour
 
         for (int i = 0; i < starsImages.Count; i++)
         {
-            starsImages[i].sprite = stars > i ? onSprite : offSprite;
+            starsImages[i].sprite = stars > i ? onStarSprite : offStarSprite;
             starsImages[i].color = isLocked ? Color.gray : Color.white;
         }
+
+        if (starsAmount == 3)
+            starsImages[1].sprite = middleStarSpriteOn;
+        else if (starsAmount == 2) 
+            starsImages[1].sprite = middleStarSpriteHalfOn;
+        else
+            starsImages[1].sprite = middleStarSpriteOff;
+
+        buttonEffect.enabled = !isLocked;
     }
 
     private void onLevelClicked()

@@ -248,7 +248,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ee1b2864b92b5f0458b49567794b43ec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b36f00d62fc467e40ad4e0c1ed9fd902, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -423,6 +423,7 @@ GameObject:
   - component: {fileID: 8215662474986317822}
   - component: {fileID: 7977330701300974783}
   - component: {fileID: 7472310437465762751}
+  - component: {fileID: 7195798952001704099}
   m_Layer: 5
   m_Name: Button Level
   m_TagString: Button
@@ -479,8 +480,11 @@ MonoBehaviour:
   imgLocked: {fileID: 5668670935653099940}
   myImage: {fileID: 7977330701300974783}
   button: {fileID: 7472310437465762751}
-  onSprite: {fileID: 21300000, guid: b7d76833e1fe1d74dabfa443dda962be, type: 3}
-  offSprite: {fileID: 21300000, guid: ee1b2864b92b5f0458b49567794b43ec, type: 3}
+  onStarSprite: {fileID: 21300000, guid: b7d76833e1fe1d74dabfa443dda962be, type: 3}
+  offStarSprite: {fileID: 21300000, guid: ee1b2864b92b5f0458b49567794b43ec, type: 3}
+  middleStarSpriteOn: {fileID: 21300000, guid: aaf538bb496c1a44e9b196855ef10b9f, type: 3}
+  middleStarSpriteHalfOn: {fileID: 21300000, guid: 202aa7b9e0d54864bb18f950f7d1d970, type: 3}
+  middleStarSpriteOff: {fileID: 21300000, guid: b36f00d62fc467e40ad4e0c1ed9fd902, type: 3}
   onSprite2: {fileID: 21300000, guid: 2a7d5c1ccadf4cc4ab9c165074b432f4, type: 3}
   offSprite2: {fileID: 21300000, guid: 3a0808057c097a541adba2ae5a4646c9, type: 3}
   nameScene: Scene1
@@ -560,3 +564,29 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7195798952001704099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8375958719282879856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac7c834fe51fa5f4cbf7daf0e00b6ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modifyHitBox: 0
+  alphaRayCast: 0.1
+  scaleSpeed: 2
+  scaleLimit: 1.1
+  modifyImage: 0
+  imageDefault: {fileID: 0}
+  imageHighlighted: {fileID: 0}
+  textHighlight: 0
+  textToHighlight: {fileID: 0}
+  colorHighlight: {r: 0, g: 0, b: 0, a: 0}
+  enableObject: 0
+  objectToEnable: {fileID: 0}
+  objectToRotate: {fileID: 0}
+  rotateSpeed: 0
